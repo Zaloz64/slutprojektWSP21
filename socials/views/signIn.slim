@@ -1,13 +1,21 @@
-.login
-    form action="login" method="post"
-        input type="text" name="username" placeholder="Username" 
-        input type="password" name="password" placeholder="Password"
-        input.btn type="submit" value="Login"
+link rel="stylesheet" href="\public\css\style.css"/
+
+main
+    section
+
+    .signIn
+        .login
+            h2 Log In
+            form action="login" method="post"
+                input type="text" name="username" placeholder="Username" 
+                input type="password" name="password" placeholder="Password"
+                input.btn type="submit" value="Sign In"
 
 
-.signUp
-    form action="users/new" methode="post"
-        input type="text" name="username" placeholder="Username" /
-        input type="password" name="password" placeholder="Password"/
-        input type="password" name="password2" placeholder="Password confirmation"/
-        input.btn type="submit" value="Register"/
+        .signUp
+            h2 Sign Up
+            form action="users/new" methode="post"
+                input type="text" name="username" placeholder="Username" /
+                input type="password" name="password" placeholder="Password"/
+                input type="password" name="password2" placeholder="Password confirmation"/
+                input.btn type="submit" value="Register"/

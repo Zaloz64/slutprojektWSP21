@@ -1,0 +1,30 @@
+
+@mixin center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+@mixin btn {
+    border-style: none;
+    color: white;
+    background-color: blue;
+    padding: 1rem;
+}
+
+
+@mixin inputField {
+    border-width: 0 0 1px 0;
+    border-color: black;
+    background-color: white;
+    margin-bottom: 1rem;
+}
+
+@mixin boxshadow {
+    box-shadow: 0 0 1rem rgb(226, 226, 226);
+}
+
+@mixin insetboxshadow {
+    box-shadow: inset 0 0 1rem rgb(226, 226, 226);
+}

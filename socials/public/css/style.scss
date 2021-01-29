@@ -1,0 +1,70 @@
+@import '_variables';
+
+body{
+
+    background-color: #f0ebe5;
+    @include center;
+    flex-direction: column;
+    main{
+        @include center;
+        @include boxshadow;
+
+        height: 70vh;
+        width: 60vw;
+
+        section{
+            height: 100%;
+            width: 50%;
+            background-color: blue;
+        }
+
+        .signIn{
+            @include center;
+            @include insetboxshadow;
+
+            width: 50%;
+            height: 100%;
+            background-color: white;
+
+            h2 {
+                align-self: flex-start
+            }
+
+            .login {
+                @include center;
+                flex-direction: column;
+                margin: 2.5rem;
+
+                form {
+                    display: flex;
+                    flex-direction: column;
+
+                    
+                    input {
+                        @include inputField;
+                        &.btn {
+                            @include btn
+                        }
+                    }
+
+                }
+            
+            }
+            
+            .signUp {
+                display: none;
+            }
+        }
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
