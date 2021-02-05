@@ -2,9 +2,10 @@
 
 body{
 
-    background-color: #f0ebe5;
+    background-color: #d4b8d2;
     @include center;
     flex-direction: column;
+    height: 100vh;
     main{
         @include center;
         @include boxshadow;
@@ -16,10 +17,10 @@ body{
             height: 100%;
             width: 50%;
             @include center;
-            background-color: #af9a7f;
+            background-color: white;
             img {
-                width: 10rem;
-                height: 10rem;
+                width: 80%;
+                height: auto;
             }
         }
 
@@ -29,20 +30,22 @@ body{
 
             width: 50%;
             height: 100%;
-            background-color: white;
+            background-color: $signInColor;
 
             h2 {
                 align-self: flex-start
             }
 
             .login {
-                @include center;
+                display: flex;
                 flex-direction: column;
-                margin: 2.5rem;
+                width: 80%;
+                
 
                 form {
                     display: flex;
                     flex-direction: column;
+                    width: 80%;
 
                     
                     input {

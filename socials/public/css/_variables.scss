@@ -1,4 +1,6 @@
 
+$signInColor: #f0ebe5;
+
 @mixin center {
     display: flex;
     justify-content: center;
@@ -17,16 +19,16 @@
 @mixin inputField {
     border-width: 0 0 1px 0;
     border-color: black;
-    background-color: white;
+    background-color: $signInColor;
     margin-bottom: 1rem;
 }
 
 @mixin boxshadow {
-    box-shadow: 0 0 1rem rgb(226, 226, 226);
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.199);
 }
 
 @mixin insetboxshadow {
-    box-shadow: inset 0 0 1rem rgb(226, 226, 226);
+    box-shadow: inset 0 0 1rem rgba(0, 0, 0, 0.192);
 }
 
 @mixin nullify {
