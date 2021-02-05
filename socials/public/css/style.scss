@@ -15,7 +15,12 @@ body{
         section{
             height: 100%;
             width: 50%;
-            background-color: blue;
+            @include center;
+            background-color: #af9a7f;
+            img {
+                width: 10rem;
+                height: 10rem;
+            }
         }
 
         .signIn{
