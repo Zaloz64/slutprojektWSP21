@@ -1,0 +1,71 @@
+@import '_variables';
+
+body{
+
+    margin:0;
+    background-color: #f0ebe5;
+    width: 100%;
+
+    nav {
+        display: flex;
+        align-items: center;
+        margin: 2rem 5rem;
+
+        .logo {
+            font-size: 2rem;
+        }
+
+        .search{
+            border-style: none;
+            margin: 0 2rem;
+            height: 100%;
+        }
+
+        a {
+            @include nullify;
+            &.tag1 {
+                margin: 0 2rem 0 auto;
+            }
+        }
+    }
+
+
+    main{
+
+        margin: 2rem 5rem;
+        display: flex;
+
+        aside {
+            width: 20vw;
+            background-color: rgb(135, 135, 189);
+            margin-right: 1rem;
+
+            .maininfo {
+                @include center;
+                flex-direction: column;
+                margin-top: 3rem;
+                border: black solid;
+            }
+        }
+
+        section {
+            width: 80vw;
+            background-color: rgb(140, 192, 140);
+
+        }
+
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+

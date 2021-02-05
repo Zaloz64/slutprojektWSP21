@@ -1,0 +1,71 @@
+body {
+  margin: 0;
+  background-color: #f0ebe5;
+  width: 100%;
+}
+
+body nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 2rem 5rem;
+}
+
+body nav .logo {
+  font-size: 2rem;
+}
+
+body nav .search {
+  border-style: none;
+  margin: 0 2rem;
+  height: 100%;
+}
+
+body nav a {
+  text-decoration: none;
+  color: black;
+}
+
+body nav a.tag1 {
+  margin: 0 2rem 0 auto;
+}
+
+body main {
+  margin: 2rem 5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+body main aside {
+  width: 20vw;
+  background-color: #8787bd;
+  margin-right: 1rem;
+}
+
+body main aside .maininfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-top: 3rem;
+  border: black solid;
+}
+
+body main section {
+  width: 80vw;
+  background-color: #8cc08c;
+}
+/*# sourceMappingURL=socials.css.map */
