@@ -2,6 +2,7 @@ require 'sinatra'
 require 'slim'
 require 'sqlite3'
 require 'bcrypt'
+require_relative 'model.rb'
 
 enable :sessions
 
@@ -14,16 +15,11 @@ end
 post('/login') do
     username = params[:username]
     password = params[:password]
-    db = getDb()
-    result = db.execute("SELECT * FROM users WHERE username = ?",username).first
-    pwdigest = result["pwdigest"]
-    id = result["id"]
-
-    if BCrypt::Password.new(pwdigest) == password
-      session[:id] = id
+    session[:id] = login_user(username, password)
+    if session[:id] != nil
       redirect('/media')
     else
-      "fel lösenord"
+      "login failed"
     end
 end
 
@@ -41,20 +37,9 @@ get('/users/new') do
     password2 = params[:password2]
   
     if password == password2
-      password_digest = BCrypt::Password.create(password)
-      db = SQLite3::Database.new('db/socialsDb.db')
-      db.execute('INSERT INTO users (username,pwdigest) VALUES (?,?)',username,password_digest)
+      register_user(username, password)
       redirect('/')
     else
       "Lösenorden matchar inte"
     end
 end
-
-# Functions to make code more easyread.
-
-def getDb()
-    db = SQLite3::Database.new('db/socialsDb.db')
-    db.results_as_hash = true
-    return db
-end
-
