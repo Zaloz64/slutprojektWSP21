@@ -21,6 +21,12 @@ def register_user(username, password)
     db.execute('INSERT INTO users (username,pwdigest) VALUES (?,?)',username,password_digest)
 end
 
+def get_user(user_id)
+    db = connect_to_db()
+    username = db.execute("SELECT username FROM users WHERE id = ?",user_id).first
+    return username
+end
+
 def get_posts_for_user(user_id)
     
 end
