@@ -30,7 +30,7 @@ end
 get('/media') do
   id = session[:id].to_i
   username = get_user(id)
-  slim(:"media/index",locals:{user:id})
+  slim(:"media/index",locals:{user:username.first})
 end
 
 # Register Borde vara en post=?????

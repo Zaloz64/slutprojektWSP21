@@ -1,5 +1,8 @@
 
-$signInColor: #f0ebe5;
+$signInColor: #fed8e3;
+$colorButton: #481d4a;
+
+
 
 @mixin center {
     display: flex;
@@ -11,7 +14,7 @@ $signInColor: #f0ebe5;
 @mixin btn {
     border-style: none;
     color: white;
-    background-color: blue;
+    background-color: $colorButton;
     padding: 1rem;
 }
 
