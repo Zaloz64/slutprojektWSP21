@@ -52,7 +52,7 @@ end
 
 # Uplode photo
 
-post '/upload' do
+post ('/upload') do
   # Check if user uploaded a file
   if params[:image] && params[:image][:filename]
     filename = params[:image][:filename]
@@ -64,7 +64,13 @@ post '/upload' do
       f.write(file.read)
     end
   end
+
+  redirect('uplod/edit')
+
 end
 
+get('/uplod/edit') do 
+  
 
+end
 
