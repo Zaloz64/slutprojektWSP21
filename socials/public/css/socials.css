@@ -21,6 +21,7 @@ body nav .logo {
 body nav .search {
   border-style: none;
   margin: 0 2rem;
+  padding: 10px;
   height: 100%;
 }
 

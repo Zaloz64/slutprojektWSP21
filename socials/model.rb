@@ -32,7 +32,9 @@ def get_posts_for_user(user_id)
 end
 
 def new_post(user_id)
-    
+    db = connect_to_db()
+    db.execute('INSERT ')
+
 end
 
 def edit_post
