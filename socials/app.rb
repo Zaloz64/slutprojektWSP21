@@ -19,6 +19,13 @@ get('/media/edit') do
   slim(:"media/edit", locals:{picture:session[:picture]})
 end
 
+get('/media') do
+  username = get_user(session[:id].to_i)
+  # posts = get_posts_for_user()
+  slim(:"media/index",locals:{user:username.first})
+end
+
+
 # Logging in
 post('/login') do
   username = params[:username]
@@ -31,13 +38,6 @@ post('/login') do
     "login failed"
   end
 end
-
-get('/media') do
-  id = session[:id].to_i
-  username = get_user(id)
-  slim(:"media/index",locals:{user:username.first})
-end
-
 # Register Borde vara en post=?????
 
 get('/users/new') do
@@ -73,6 +73,14 @@ post('/upload') do
   end
   redirect('/media/edit')
   # Need a rescue 
+end
+
+post('/media/edit') do 
+  text = params[:description]
+  time = Time.now
+  date = "#{time.year}-#{time.month}-#{time.day}"
+  new_post_pic(session[:id], session[:picture],text,date)
+  redirect('/media')
 end
 
 

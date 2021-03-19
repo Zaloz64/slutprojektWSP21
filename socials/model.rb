@@ -23,18 +23,24 @@ end
 
 def get_user(user_id)
     db = connect_to_db()
-    username = db.execute("SELECT username FROM users WHERE id = ?",user_id).first
+    username = db.execute('SELECT username FROM users WHERE id = ?',user_id).first
     return username
 end
 
 def get_posts_for_user(user_id)
-    
+    db = connect_to_db()
+    results_as_hash = true
+    photos = db.execute('SELECT * FROM user_post_relation WHERE user_id = ?',user_id)
+    return photos
 end
 
-def new_post(user_id)
+def new_post_pic(user_id, post, text,date)
     db = connect_to_db()
-    db.execute('INSERT ')
-
+    db.execute('INSERT INTO posts (post,text,date) VALUES (?,?,?)',post,text,date)
+    post_id = db.execute('SELECT id FROM posts WHERE post = ?',post)
+    p post_id
+    p user_id
+    # db.execute('INSERT INTO user_post_relation (user_id,post_id) VALUES (?,?)',user_id, post_id[0])
 end
 
 def edit_post
