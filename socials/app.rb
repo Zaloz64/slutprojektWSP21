@@ -15,12 +15,16 @@ get('/media/new') do
   slim(:"media/new", locals:{picture:session[:picture]})
 end
 
+get('/media/edit') do 
+  slim(:"media/edit", locals:{picture:session[:picture]})
+end
+
 # Logging in
 post('/login') do
   username = params[:username]
   password = params[:password]
   session[:id] = login_user(username, password)
-  session[:picture] = "./public/img/image"
+  session[:picture] = "/img/image.png"
   if session[:id] != nil
     redirect('/media')
   else
@@ -58,19 +62,17 @@ post('/upload') do
     filename = params[:image][:filename]
     file = params[:image][:tempfile]
     path = "./public/uploads/#{filename}"
-    session[:picture] = path
+    session[:picture] = "/uploads/#{filename}"
 
     File.open(path, 'wb') do |f|
       f.write(file.read)
     end
+
+    # add pathway user and stuffsssss.
+
   end
-
-  redirect('uplod/edit')
-
+  redirect('/media/edit')
+  # Need a rescue 
 end
 
-get('/upload') do 
-  
-  
-end
 
