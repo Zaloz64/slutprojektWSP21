@@ -16,6 +16,10 @@ body {
   height: 100vh;
 }
 
+body nav {
+  display: none;
+}
+
 body main {
   display: -webkit-box;
   display: -ms-flexbox;

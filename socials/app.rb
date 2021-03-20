@@ -20,9 +20,16 @@ get('/media/edit') do
 end
 
 get('/media') do
+  usernames = get_users()
   username = get_user(session[:id].to_i)
-  # posts = get_posts_for_user()
-  slim(:"media/index",locals:{user:username.first})
+  posts = get_posts_for_user(session[:id].to_i)
+  slim(:"media/index",locals:{user:username.first, users:usernames, photos:posts})
+end
+
+get('/media/profile') do 
+  username = get_user(session[:id].to_i)
+  posts = get_posts_for_user(session[:id].to_i)
+  slim(:"media/profile",locals:{user:username.first, photos:posts})
 end
 
 

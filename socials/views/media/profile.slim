@@ -1,0 +1,22 @@
+link rel="stylesheet" href="\css\socials.css"/
+
+main 
+    aside 
+        .maininfo 
+            <img src="https://img.icons8.com/bubbles/100/000000/user.png"/>
+            p #{user[1]}!
+            a href="/media/new" +
+
+    section  
+        .information 
+            <img src="https://img.icons8.com/bubbles/100/000000/user.png"/>
+            h2 #{user[1]}
+            h3 Followers <br> 0
+            h3 Follow <br> 0
+
+        .profileContainer
+            - photos.each do |photo|
+                img.profileImg src="#{photo['post']}"
+
+
+

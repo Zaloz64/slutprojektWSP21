@@ -2,6 +2,10 @@
 
 body{
 
+    nav {
+        display: none;
+    }
+
     background-color: #d4b8d2;
     @include center;
     flex-direction: column;
