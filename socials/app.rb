@@ -2,6 +2,8 @@ require 'sinatra'
 require 'slim'
 require 'sqlite3'
 require 'bcrypt'
+require "sinatra/json"
+require 'json'
 require_relative 'model.rb'
 
 enable :sessions
@@ -46,6 +48,14 @@ post('/login') do
   end
 end
 # Register Borde vara en post=?????
+
+post("/api/users") do
+  payload = JSON.parse(request.body.read)
+  pp payload
+  # username = payload['results'][0]['login']['username']
+  # password = payload['results'][0]['login']['password']
+  # register_user(username,password)
+end
 
 get('/users/new') do
 
