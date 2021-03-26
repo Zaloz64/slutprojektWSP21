@@ -3,12 +3,18 @@ html lang="en"
   head
     meta charset="UTF-8"/
     meta name="viewport" content="width=device-width, initial-scale=1.0"/
+    script src="/js/script.js" 
+    link rel="stylesheet" href="\css\searchbar.css"/ 
     title Socials
   body
 
     nav
       .logo Socials 
-      <input class="search" type="text" placeholder="Search.." >
+      <input class="search" id="myInput" onkeyup="filterFunction()" type="text" placeholder="Search.."  >
+        <div id="myDropdown" class="dropdown-content">
+          - if (defined?(users) != nil)
+            - users.each do |user| 
+              a href="" #{user['username']}
 
       a.tag1 href="/media" Feed  
       a href="/media/profile" Profile  

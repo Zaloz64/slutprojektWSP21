@@ -4,28 +4,32 @@ main
     aside 
         .maininfo 
             <img src="https://img.icons8.com/bubbles/100/000000/user.png"/>
-            p #{user[1]}!
+            / p #{user[1]}!
             a href="/media/new" +
         .smallContianer
             - photos.each do |photo|
                 img.smallImg src="#{photo['post']}"
-        <div class="dropdown">
-            <button onclick="myFunction()" class="dropbtn">Search Friends</button>
-            <div id="myDropdown" class="dropdown-content">
-                <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-                - users.each do |user| 
-                    a href="" #{user['username']}
 
 
     section   
-        form.update action="" method="post" 
-            <input class="textfield" type="textarea" placeholder="Welcome back #{user[1]}! What is on your mind?">
+        form.update action="create" method="post" 
+            <input class="textfield" name="textfield" type="textarea" placeholder="Welcome back ! What is on your mind?">
             .btns 
-                a.btn href="" Add photo 
+                a.btn href="/media/new" Add photo 
                 input.btn type="submit" value="Post"
     
         / Lägg ut alla inlägg här
-
+        / - posts.each do |post|
+        /     .conatiner  
+        /         - if (post['post'] == "") 
+        /             p = post['text']
+        /             button Comment
+        /             button like
+        /         - else 
+        /             img src="#{post['post']}" alt=""/
+        /             p = post['text']
+        /             button Comment
+        /             button like
 
 
 script src="/js/script.js"  

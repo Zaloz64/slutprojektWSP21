@@ -8,7 +8,11 @@ require_relative 'model.rb'
 
 enable :sessions
 
-
+get('') do
+  users = get_users()
+  slim(:layout, locals:{users:users})
+end
+  
 get('/') do
   slim(:signIn)
 end
@@ -24,8 +28,14 @@ end
 get('/media') do
   usernames = get_users()
   username = get_user(session[:id].to_i)
+  p username
+
+
   posts = get_posts_for_user(session[:id].to_i)
-  slim(:"media/index",locals:{user:username.first, users:usernames, photos:posts})
+  allPosts = get_all_posts()
+  # slim(:"media/index",locals:{user:username.first, users:usernames, photos:posts, posts:allPosts})
+  slim(:"media/index",locals:{ users:usernames, photos:posts, posts:allPosts})
+
 end
 
 get('/media/profile') do 
@@ -94,10 +104,21 @@ end
 
 post('/media/edit') do 
   text = params[:description]
-  time = Time.now
-  date = "#{time.year}-#{time.month}-#{time.day}"
+  date = getDate()
   new_post_pic(session[:id], session[:picture],text,date)
   redirect('/media')
 end
 
+post('/create') do
+  text = params[:textfield]
+  date = getDate()
+  new_post(session[:id], text, date)
+  redirect('/media')
+end
 
+
+def getDate()
+  time = Time.now
+  date = "#{time.year}-#{time.month}-#{time.day}"
+  return date
+end
