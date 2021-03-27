@@ -10,11 +10,12 @@ html lang="en"
 
     nav
       .logo Socials 
-      <input class="search" id="myInput" onkeyup="filterFunction()" type="text" placeholder="Search.."  >
-        <div id="myDropdown" class="dropdown-content">
-          - if (defined?(users) != nil)
-            - users.each do |user| 
-              a href="" #{user['username']}
+      .dropdown-content
+        <input class="search" id="myInput" onkeyup="filterFunction()" type="text" placeholder="Search.."  >
+          <div id="myDropdown">
+            - if (defined?(users) != nil)
+              - users.each do |user| 
+                a href="" #{user['username']}
 
       a.tag1 href="/media" Feed  
       a href="/media/profile" Profile  
