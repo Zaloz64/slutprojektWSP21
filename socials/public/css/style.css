@@ -1,5 +1,6 @@
 body {
-  background-color: #b68c33;
+  background-image: -webkit-gradient(linear, left top, right bottom, from(#FE8C8B), to(#FDBA45));
+  background-image: linear-gradient(to bottom right, #FE8C8B, #FDBA45);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -68,9 +69,30 @@ body main .signIn {
           align-items: center;
   -webkit-box-shadow: inset 0 0 1rem rgba(0, 0, 0, 0.192);
           box-shadow: inset 0 0 1rem rgba(0, 0, 0, 0.192);
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   width: 50%;
   height: 100%;
-  background-color: #fed8e3;
+  background-color: #f0ebe5;
+}
+
+body main .signIn #signInOption {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  z-index: 1;
+  top: 10rem;
+  right: 20rem;
+  border-style: none;
+  border-style: none;
+  color: white;
+  background-color: #3b3b3b;
+  padding: 1rem;
+  width: 5rem;
+  border-radius: 25px;
 }
 
 body main .signIn h2 {
@@ -103,18 +125,48 @@ body main .signIn .login form {
 body main .signIn .login form input {
   border-width: 0 0 1px 0;
   border-color: black;
-  background-color: #fed8e3;
+  background-color: #f0ebe5;
   margin-bottom: 1rem;
 }
 
 body main .signIn .login form input.btn {
   border-style: none;
   color: white;
-  background-color: #481d4a;
+  background-color: #3b3b3b;
   padding: 1rem;
 }
 
 body main .signIn .signUp {
   display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 80%;
+}
+
+body main .signIn .signUp form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 80%;
+}
+
+body main .signIn .signUp form input {
+  border-width: 0 0 1px 0;
+  border-color: black;
+  background-color: #f0ebe5;
+  margin-bottom: 1rem;
+}
+
+body main .signIn .signUp form input.btn {
+  border-style: none;
+  color: white;
+  background-color: #3b3b3b;
+  padding: 1rem;
 }
 /*# sourceMappingURL=style.css.map */

@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AACI,IADA,CACA,GAAG,CAAC;EACA,OAAO,EAAE,IAAI;CAChB",
+    "sources": [
+        "post.scss",
+        "_variables.scss"
+    ],
+    "names": [],
+    "file": "post.css"
+}

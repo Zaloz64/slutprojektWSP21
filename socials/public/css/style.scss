@@ -6,7 +6,8 @@ body{
         display: none;
     }
 
-    background-color: #b68c33;
+    background-image: linear-gradient(to bottom right, #FE8C8B, #FDBA45);
+
     @include center;
     flex-direction: column;
     height: 100vh;
@@ -31,10 +32,23 @@ body{
         .signIn{
             @include center;
             @include insetboxshadow;
+            flex-direction: column;
 
             width: 50%;
             height: 100%;
-            background-color: $signInColor;
+            background-color: #f0ebe5;
+
+            #signInOption {
+                display: flex;
+                position: absolute;
+                z-index: 1;
+                top: 10rem;
+                right: 20rem;
+                border-style: none;
+                @include btn();
+                width: 5rem;
+                border-radius: 25px;
+            }
 
             h2 {
                 align-self: flex-start
@@ -65,6 +79,23 @@ body{
             
             .signUp {
                 display: none;
+                flex-direction: column;
+                width: 80%;
+
+                form {
+                    display: flex;
+                    flex-direction: column;
+                    width: 80%;
+
+                    
+                    input {
+                        @include inputField;
+                        &.btn {
+                            @include btn
+                        }
+                    }
+
+                }
             }
         }
 

@@ -4,6 +4,7 @@ require 'sqlite3'
 require 'bcrypt'
 require "sinatra/json"
 require 'json'
+# require "execjs"
 require_relative 'model.rb'
 
 enable :sessions
@@ -28,13 +29,10 @@ end
 get('/media') do
   usernames = get_users()
   username = get_user(session[:id].to_i)
-  p username
-
-
   posts = get_posts_for_user(session[:id].to_i)
   allPosts = get_all_posts()
-  # slim(:"media/index",locals:{user:username.first, users:usernames, photos:posts, posts:allPosts})
-  slim(:"media/index",locals:{ users:usernames, photos:posts, posts:allPosts})
+  slim(:"media/index",locals:{user:username.first, users:usernames, photos:posts, posts:allPosts})
+  # slim(:"media/index",locals:{user:username, users:usernames, photos:posts, posts:allPosts})
 
 end
 
@@ -77,7 +75,8 @@ get('/users/new') do
     register_user(username, password)
     redirect('/')
   else
-    "Lösenorden matchar inte"
+    # context = getJSFile()
+    # context.call()
   end
 end
 
@@ -122,3 +121,10 @@ def getDate()
   date = "#{time.year}-#{time.month}-#{time.day}"
   return date
 end
+
+def getJSFile()
+  source = open('/js/script.js').read
+  context = ExecJS.compile(source)
+  return context
+end
+

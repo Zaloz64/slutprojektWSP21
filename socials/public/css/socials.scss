@@ -6,33 +6,6 @@ body{
     background-color: #f0ebe5;
     width: 100%;
 
-    nav {
-        display: flex;
-        align-items: center;
-        margin: 2rem 5rem;
-
-        .logo {
-            font-size: 2rem;
-            letter-spacing: 4px;
-        }
-
-        .search{
-            border-style: none;
-            margin: 0 2rem;
-            padding: 10px;
-            height: 100%;
-        }
-
-        a {
-            @include nullify;
-            font-size: 1.5rem;
-            &.tag1 {
-                margin: 0 2rem 0 auto;
-            }
-        }
-    }
-
-
     main{
 
         margin: 2rem 5rem;

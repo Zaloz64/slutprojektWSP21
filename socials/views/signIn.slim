@@ -7,17 +7,17 @@ main
 
     .signIn
           
-        button onclick="signInOption()" Sign up 
+        button id="signInOption" type="button" onclick="signInOption()" Register
         .login
-            h2 Log In
+            h2 Login
             form action="login" method="post"
                 input type="text" name="username" placeholder="Username" 
                 input type="password" name="password" placeholder="Password"
-                input.btn type="submit" value="Sign In"
+                input.btn type="submit" value="Login"
 
 
         .signUp
-            h2 Sign Up
+            h2 Register
             form action="users/new" methode="post"
                 input type="text" name="username" placeholder="Username" /
                 input type="password" name="password" placeholder="Password"/

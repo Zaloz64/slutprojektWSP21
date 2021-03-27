@@ -1,45 +1,68 @@
 body nav {
-  /* The search field */
-  /* The search field when it gets focus/clicked on */
-  /* The container <div> - needed to position the dropdown content */
-  /* Dropdown Content (Hidden by Default) */
-  /* Links inside the dropdown */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 2rem 5rem;
 }
 
-body nav #myInput {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  background-image: url("searchicon.png");
-  background-position: 14px 12px;
-  background-repeat: no-repeat;
-  font-size: 16px;
-  padding: 14px 20px 12px 45px;
-  border: none;
-  border-bottom: 1px solid #ddd;
+body nav .pages {
+  margin-left: auto;
 }
 
-body nav #myInput:focus {
-  outline: 3px solid #ddd;
+body nav .pages a {
+  text-decoration: none;
+  color: black;
+  font-size: 1.5rem;
+  margin-right: 1rem;
+}
+
+body nav .logo {
+  font-size: 2rem;
+  letter-spacing: 4px;
 }
 
 body nav .dropdown {
   position: relative;
   display: inline-block;
+  height: 100%;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
 }
 
-body nav .dropdown-content {
-  display: block;
-  background-color: #f6f6f6;
-  min-width: 230px;
-  border: 1px solid #ddd;
+body nav .dropdown #myInput {
+  padding: 0.6rem;
+  margin-left: 1rem;
+  border-style: none;
+}
+
+body nav .dropdown .dropdown-content {
+  margin-left: 1rem;
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  -webkit-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
-body nav .dropdown-content a {
+body nav .dropdown .dropdown-content a {
   color: black;
-  position: relative;
   padding: 12px 16px;
   text-decoration: none;
+  display: block;
+  font-family: 'Lato', sans-serif;
+}
+
+body nav .dropdown .dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+body nav .dropdown:hover .dropdown-content {
   display: block;
 }
 /*# sourceMappingURL=searchbar.css.map */
