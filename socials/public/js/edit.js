@@ -71,13 +71,14 @@ async function postData(url = '', data = {}) {
     
         imageObj.onload = function () {
             context.drawImage(imageObj, x, y, width, height, 0, 0, width, height);
-            canvas.toBlob((d)  => {
-                callback(d);
-                var data = new FormData();
-                // data.append("record[video]", recorder.getBlob(), (new Date()).getTime() + ".webm");
+            callback(canvas.toDataURL());
+            // canvas.toBlob((d)  => {
+            //     callback(d);
+            //     var data = new FormData();
+            //     // data.append("record[video]", recorder.getBlob(), (new Date()).getTime() + ".webm");
 
-                // postData("/media/edit", d);
-            })
+            //     // postData("/media/edit", d);
+            // })
             
         };
         // https://stackoverflow.com/questions/34111390/displaying-blob-image-from-mysql-database-into-dynamic-div-in-html
