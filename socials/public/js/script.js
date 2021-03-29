@@ -1,13 +1,33 @@
-function likeBtn() {
+function likeBtn(obj) {
+  templiked = 'fa fa-heart fa-3x'
+  temp = 'fa fa-heart-o fa-3x'
+  if (obj.className == temp) {
+    obj.className = templiked;
+  }
+  else {
+    obj.className = temp;
+  }
+}
 
-
+function seeposts() {
+  imgpost = document.getElementsByClassName('imgposts')[0]
+  textpost = document.getElementsByClassName('textposts')[0]
+  if (imgpost.style.display == "none") {
+    imgpost.style.display = "block";
+    textpost.style.display = "none";
+    document.querySelector('#profileButton').innerHTML = 'Written posts';
+  }
+  else {
+    imgpost.style.display = "none";
+    textpost.style.display = "block";
+    document.querySelector('#profileButton').innerHTML = 'Image posts';
+  }
 }
 
 
 function signInOption() {
   signup = document.getElementsByClassName('signUp')[0]
   logIn = document.getElementsByClassName('login')[0]
-  console.log(document.querySelector('#signInOption').innerHTML);
   if (signup.style.display == "none") {
     signup.style.display = "block";
     logIn.style.display = "none";

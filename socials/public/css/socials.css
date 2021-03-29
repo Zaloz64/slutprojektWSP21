@@ -77,23 +77,125 @@ body main section {
 body main section .conatinerPost {
   border: #cccccc solid;
   border-width: 1px;
+  background-color: white;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 35rem auto;
       grid-template-columns: 35rem auto;
-      grid-template-areas: "img info";
+      grid-template-areas: "img info" "l l";
   margin-top: 1rem;
 }
 
 body main section .conatinerPost .textPost {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-area: l;
+  padding: 1rem;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 3fr 1fr;
+      grid-template-columns: 1fr 3fr 1fr;
+      grid-template-areas: "prof txt btn";
+}
+
+body main section .conatinerPost .textPost .profile {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: prof;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
-body main section .conatinerPost .textPost img {
+body main section .conatinerPost .textPost .profile img {
+  text-decoration: none;
+  color: black;
+  -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0.199);
+          box-shadow: 0 0 0 rgba(0, 0, 0, 0.199);
+  border-style: none;
   width: 10rem;
   height: auto;
+}
+
+body main section .conatinerPost .textPost .profile a {
+  text-decoration: none;
+  color: black;
+  -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0.199);
+          box-shadow: 0 0 0 rgba(0, 0, 0, 0.199);
+  border-style: none;
+}
+
+body main section .conatinerPost .textPost p {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: txt;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body main section .conatinerPost .textPost .btns {
+  -ms-grid-row: 1;
+  -ms-grid-column: 3;
+  grid-area: btn;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-decoration: none;
+  color: black;
+  -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0.199);
+          box-shadow: 0 0 0 rgba(0, 0, 0, 0.199);
+  border-style: none;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body main section .conatinerPost .textPost .btns .fa {
+  text-decoration: none;
+  color: black;
+  -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0.199);
+          box-shadow: 0 0 0 rgba(0, 0, 0, 0.199);
+  border-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body main section .conatinerPost .textPost .btns button {
+  text-decoration: none;
+  color: black;
+  -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0.199);
+          box-shadow: 0 0 0 rgba(0, 0, 0, 0.199);
+  border-style: none;
+  background-color: white;
 }
 
 body main section .conatinerPost img {
@@ -105,14 +207,14 @@ body main section .conatinerPost img {
   -webkit-box-shadow: 0 0 1rem rgba(0, 0, 0, 0.199);
           box-shadow: 0 0 1rem rgba(0, 0, 0, 0.199);
   padding: 0.2rem;
-  background-color: #f0ebe5;
+  background-color: white;
 }
 
 body main section .conatinerPost .postInfo {
-  padding-left: 1rem;
+  padding: 0 1rem;
   -webkit-box-shadow: 0 0 1rem rgba(0, 0, 0, 0.199);
           box-shadow: 0 0 1rem rgba(0, 0, 0, 0.199);
-  background-color: #f0ebe5;
+  background-color: white;
   -ms-grid-row: 1;
   -ms-grid-column: 2;
   grid-area: info;
@@ -183,7 +285,7 @@ body main section .conatinerPost .postInfo .btns button {
   -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0.199);
           box-shadow: 0 0 0 rgba(0, 0, 0, 0.199);
   border-style: none;
-  background-color: #f0ebe5;
+  background-color: white;
 }
 
 body main section .update {
@@ -197,18 +299,25 @@ body main section .update {
       -ms-flex-align: center;
           align-items: center;
   background-color: white;
+  border-style: solid;
+  border-color: #cccccc;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  border-width: 1px;
   padding: 1rem;
+  -webkit-box-shadow: 0 0 1rem rgba(0, 0, 0, 0.199);
+          box-shadow: 0 0 1rem rgba(0, 0, 0, 0.199);
 }
 
 body main section .update .textfield {
   width: 100%;
   padding: 3rem 0;
   border-radius: 4px;
-  border-style: none;
+  border-style: solid;
+  border-color: #cccccc;
+  border-width: 1px;
 }
 
 body main section .update .btns {

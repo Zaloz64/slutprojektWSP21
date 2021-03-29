@@ -1,0 +1,73 @@
+@import '_variables';
+
+
+main {
+
+    section {
+        background-color: white;
+        @include center;
+        @include boxshadow;
+        flex-direction: column;
+        padding: 2rem;
+
+        .information {
+            margin-top: 2rem;
+            display: grid;
+            grid-template-areas: 
+                "img stat txt";
+
+            // grid-auto-columns: 1fr 1fr;
+            grid-template-columns: 1fr 4fr 5fr;       
+
+            img {
+                grid-area: img;
+                @include center;
+            }
+
+            .stats {
+                grid-area: stat;
+                @include center;
+                h3 {
+                    margin-left: 2rem;
+
+                }
+            }
+
+            p {
+                grid-area: txt;
+                padding: 1rem;
+            }
+
+        }
+
+        button {
+            @include btn;
+            border-radius: 50px;
+            margin-bottom: 2rem;
+        }
+
+        .profileContainer {
+            .imgposts {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+
+            img {
+                width: $imagewidth*5;
+                height: $imagehight*5;
+                margin-bottom: 1rem;
+
+            }
+            p {
+                width: 100%;
+            }
+        }
+
+
+
+    }
+}
+
+
+

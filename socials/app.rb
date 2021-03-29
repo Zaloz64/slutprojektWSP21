@@ -13,17 +13,18 @@ get('') do
   users = get_users()
   slim(:layout, locals:{users:users})
 end
-  
+
+
 get('/') do
   slim(:signIn)
 end
 
-get('/media/new') do
-  slim(:"media/new", locals:{picture:session[:picture]})
+get('/posts/new') do
+  slim(:"posts/new", locals:{picture:session[:picture]})
 end
 
-get('/media/edit') do 
-  slim(:"media/edit", locals:{picture:session[:picture]})
+get('/posts/edit') do 
+  slim(:"posts/edit", locals:{picture:session[:picture]})
 end
 
 get('/media') do
@@ -31,7 +32,7 @@ get('/media') do
   username = get_user(session[:id].to_i)
   posts = get_posts_for_user(session[:id].to_i)
   allPosts = get_all_posts()
-  slim(:"media/index",locals:{user:username.first, users:usernames, photos:posts, posts:allPosts})
+  slim(:"media/index",locals:{user:username, users:usernames, photos:posts, posts:allPosts})
   # slim(:"media/index",locals:{user:username, users:usernames, photos:posts, posts:allPosts})
 
 end
@@ -97,11 +98,11 @@ post('/upload') do
     # add pathway user and stuffsssss.
 
   end
-  redirect('/media/edit')
+  redirect('/posts/edit')
   # Need a rescue 
 end
 
-post('/media/edit') do 
+post('/posts/edit') do 
   text = params[:description]
   date = getDate()
   new_post_pic(session[:id], session[:picture],text,date)
@@ -127,4 +128,39 @@ def getJSFile()
   context = ExecJS.compile(source)
   return context
 end
+
+# See user
+
+get('/user/') do
+  "User cant be found"
+end
+
+get('/user/:id') do
+  id = params[:id].to_i
+  username = get_user(id)
+  photos = get_posts_for_user(id)
+  slim(:"user/show", locals:{photos:photos,user:username})
+end
+
+# See post
+
+get('/posts/:id') do
+  id = params[:id].to_i
+  post = get_a_post(id)
+  comments = get_post_comments(id)
+  user = get_user_of_post(id)
+  slim(:"posts/show", locals:{post:post,comments:comments, user:user})
+end
+
+
+# like post
+
+get('/media/like') do 
+  post_id = params[:getpost]
+  user_id = session[:id]
+  like_post(post_id, user_id)
+end
+
+
+
 

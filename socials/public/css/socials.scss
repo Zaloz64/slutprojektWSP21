@@ -3,10 +3,8 @@
 body{
 
     margin:0;
-    // background-image: linear-gradient(to bottom right, #FE8C8B, #FDBA45);
     width: 100%;
     background-color: #f0ebe5;
-
 
     main{
 
@@ -24,8 +22,6 @@ body{
                 border: rgb(204, 204, 204) solid;
                 border-width: 1px;
                 background-color: white;
-                // position: fixed;
-                // width: 14rem;
 
                 a {
                     padding: 0.65rem 1rem;
@@ -59,23 +55,53 @@ body{
             width: 80vw;
 
             .conatinerPost {
-                
-                // padding: 1rem;
                 border: rgb(204, 204, 204) solid;
                 border-width: 1px;
-
+                background-color: white;
                 display: grid;
                 grid-template-columns:$imagewidth*10 auto;
                 grid-template-areas: 
-                    "img info";
+                    "img info"
+                    "l l";
                 margin-top: 1rem;
 
                 .textPost {
-                    display: flex;
-                    img {
-                        width: 10rem;
-                        height: auto;
+                    grid-area: l;
+                    padding: 1rem;
+                    display: grid;
+                    grid-template-columns: 1fr 3fr 1fr;
+                    grid-template-areas: "prof txt btn";
+                    .profile {
+                        grid-area: prof;
+                        @include center;
+                        flex-direction: column;
+                        img {
+                            @include nullify;
+                            width: 10rem;
+                            height: auto;
+                        }
+                        a {
+                            @include nullify;
+                        }
                     }
+
+                    p {
+                        grid-area: txt;
+                        @include center;
+
+                    }
+
+                    .btns {
+                        grid-area: btn;
+                        @include likeComment;
+                        @include center;
+
+                        button {
+                            @include nullify();
+                            background-color: white;
+                        }
+                    }
+
                 }
 
                 img {
@@ -88,7 +114,7 @@ body{
                 }
 
                 .postInfo {
-                    padding-left: 1rem;
+                    padding: 0 1rem;
                     @include boxshadow;
                     background-color: white;
 
@@ -122,7 +148,7 @@ body{
                 flex-direction: column;
                 border-width: 1px;
                 padding: 1rem;
-                @include box-shadow;
+                @include boxshadow;
                 .textfield{
                     width: 100%;
                     padding: 3rem 0;

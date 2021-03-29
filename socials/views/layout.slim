@@ -17,11 +17,11 @@ html lang="en"
         .dropdown-content
           - if (defined?(users) != nil)
             - users.each do |user| 
-              a.option href="" #{user['username']}
+              a.option href="user/#{user['id']}" #{user['username']}
       .pages
         a.tag1 href="/media" Feed  
         a href="/media/profile" Profile  
-        a href="" Settings 
+        a href="/media/edit" Settings 
 
 
 

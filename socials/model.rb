@@ -59,17 +59,43 @@ def edit_post
     
 end
 
-def get_a_post(user_id)
-    
+def get_a_post(post_id)
+    db = connect_to_db()
+    post = db.execute('SELECT * FROM posts WHERE id = ?',post_id)
+    return post
+end
+
+def get_user_of_post(post_id)
+    db = connect_to_db()
+    results_as_hash = true
+    user_id = db.execute('SELECT user_id FROM user_post_relation WHERE post_id = ?',post_id)
+    user = db.execute('SELECT * FROM users WHERE id = ?',user_id[0]['user_id'])
+    return user
+end
+
+def get_post_comments(post_id)
+    db = connect_to_db()
+    post = db.execute('SELECT * FROM comment_post_relation WHERE post_id = ?',post_id)
+    return post
 end
 
 def get_users()
     db = connect_to_db()
-    users = db.execute('SELECT username FROM users')
+    users = db.execute('SELECT * FROM users')
     return users
 end
 
 def delete_a_post(user_id)
     
 end
+
+def like_post(post_id, user_id)
+    db = connect_to_db()
+    # if db.execute('SELECT post_id FROM user_post_relation INNER JOIN posts ON user_post_relation.post_id = posts.id WHERE user_id = ?',user_id) == null
+        # db.execute('INSERT INTO likes (post_id,user_id) VALUES (?,?)', post_id, user_id)
+
+    posts = db.execute('SELECT post_id FROM likes WHERE user_id = ?',user_id)
+    p posts
+end
+
 
