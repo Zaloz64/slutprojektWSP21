@@ -1,3 +1,8 @@
+function likeBtn() {
+
+
+}
+
 
 function signInOption() {
   signup = document.getElementsByClassName('signUp')[0]

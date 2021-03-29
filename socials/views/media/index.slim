@@ -6,9 +6,9 @@ main
             <img src="https://img.icons8.com/bubbles/100/000000/user.png"/>
             p #{user[1]}!
             a href="/media/new" +
-        .smallContianer
-            - photos.each do |photo|
-                img.smallImg src="#{photo['post']}"
+        / .smallContianer
+        /     - photos.each do |photo|
+        /         img.smallImg src="#{photo['post']}"
 
 
     section   
@@ -19,17 +19,24 @@ main
                 input.btn type="submit" value="Post"
     
         / Lägg ut alla inlägg här
-        / - posts.each do |post|
-        /     .conatiner  
-        /         - if (post['post'] == "") 
-        /             p = post['text']
-        /             button Comment
-        /             button like
-        /         - else 
-        /             img src="#{post['post']}" alt=""/
-        /             p = post['text']
-        /             button Comment
-        /             button like
+        - posts.each do |post|
+            .conatinerPost  
+                - if (post['post'] == "") 
+                    .textPost 
+                        img src="https://img.icons8.com/bubbles/100/000000/user.png"
+                        p = post['text']
+                        button.comment <i class="fa fa-comments" aria-hidden="true"></i>
+                        button.heart <i class="fa fa-heart-o" aria-hidden="true"></i>
+                - else  
+                    img src="#{post['post']}" alt=""/
+                    .postInfo
+                        img src="https://img.icons8.com/bubbles/100/000000/user.png"
+                        a href="" Username 
+                        p = post['text']
+                        .btns
+                            button.comment <i class="fa fa-comments fa-3x" aria-hidden="true"></i>
+                            button.heart <i class="fa fa-heart-o fa-3x" aria-hidden="true"></i>
+                        / <i class="fa fa-heart" aria-hidden="true"> if liked
 
 
 script src="/js/script.js"  

@@ -3,8 +3,10 @@
 body{
 
     margin:0;
-    background-color: #f0ebe5;
+    // background-image: linear-gradient(to bottom right, #FE8C8B, #FDBA45);
     width: 100%;
+    background-color: #f0ebe5;
+
 
     main{
 
@@ -13,24 +15,28 @@ body{
 
         aside {
             width: 20vw;
-            background-color: rgb(139, 139, 139);
             margin-right: 1rem;
 
             .maininfo {
                 @include center;
                 flex-direction: column;
                 padding-top: 3rem;
-                border: black solid;
+                border: rgb(204, 204, 204) solid;
+                border-width: 1px;
+                background-color: white;
+                // position: fixed;
+                // width: 14rem;
 
                 a {
-                    border-style: solid;
-                    border-width: 2px;
                     padding: 0.65rem 1rem;
                     border-radius: 100%;
                     @include nullify;
                     position: relative;
                     top: 1.4rem;
-                    background-color:rgb(135, 135, 189);
+                    background-color: $colorButton;
+                    color: white;
+                    font-size: 1.5rem;
+                    font-weight: 900;
                 }
             }
 
@@ -39,132 +45,109 @@ body{
                 max-width: 100%;
                 display: flex;
                 flex-wrap: wrap;
+                justify-content: space-between;
 
                 .smallImg {
-                    height: auto;
-                    max-width: 30%;
+                    height: $imagehight*1.5;
+                    max-width: $imagewidth*1.5;
 
                 }
-            }
-
-                        /* Dropdown Button */
-            .dropbtn {
-                background-color: #4CAF50;
-                color: white;
-                padding: 16px;
-                font-size: 16px;
-                border: none;
-                cursor: pointer;
-            }
-            
-            /* Dropdown button on hover & focus */
-            .dropbtn:hover, .dropbtn:focus {
-                background-color: #3e8e41;
-            }
-            
-            /* The search field */
-            #myInput {
-                box-sizing: border-box;
-                background-image: url('searchicon.png');
-                background-position: 14px 12px;
-                background-repeat: no-repeat;
-                font-size: 16px;
-                padding: 14px 20px 12px 45px;
-                border: none;
-                border-bottom: 1px solid #ddd;
-            }
-            
-            /* The search field when it gets focus/clicked on */
-            #myInput:focus {outline: 3px solid #ddd;}
-            
-            /* The container <div> - needed to position the dropdown content */
-            .dropdown {
-                position: relative;
-                display: inline-block;
-            }
-            
-            /* Dropdown Content (Hidden by Default) */
-            .dropdown-content {
-                display: none;
-                position: absolute;
-                background-color: #f6f6f6;
-                min-width: 230px;
-                border: 1px solid #ddd;
-                z-index: 1;
-            }
-            
-            /* Links inside the dropdown */
-            .dropdown-content a {
-                color: black;
-                padding: 12px 16px;
-                text-decoration: none;
-                display: block;
-            }
-            
-            /* Change color of dropdown links on hover */
-            .dropdown-content a:hover {background-color: #f1f1f1}
-            
-            /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-            .show {display:block;}
-            
+            }            
         }
 
         section {
             width: 80vw;
-            background-color: rgb(140, 192, 140);
 
-            .profileContainer {
-                display: flex;
-                flex-wrap: wrap;
+            .conatinerPost {
+                
+                // padding: 1rem;
+                border: rgb(204, 204, 204) solid;
+                border-width: 1px;
 
-                .profileImg {
-                    max-width: 30%;
-                    height: auto;
-                }
-            }
-
-            .information {
                 display: grid;
-                grid-template-columns: 40% auto;
-                grid-template-rows: 2rem 2rem;
+                grid-template-columns:$imagewidth*10 auto;
+                grid-template-areas: 
+                    "img info";
+                margin-top: 1rem;
+
+                .textPost {
+                    display: flex;
+                    img {
+                        width: 10rem;
+                        height: auto;
+                    }
+                }
 
                 img {
+                    width: $imagewidth*10;
+                    height: $imagehight*10;
                     grid-area: img;
+                    @include boxshadow;
+                    padding: 0.2rem;
+                    background-color: white;
                 }
-                h2 {
-                    grid-area: name;
+
+                .postInfo {
+                    padding-left: 1rem;
+                    @include boxshadow;
+                    background-color: white;
+
+                    grid-area: info;
+                    @include center();
+                    flex-direction: column;
+                    img {
+                        @include nullify();
+                        width: 10rem;
+                        height: auto;
+                    }
+                    a {
+                        @include nullify();
+                    }
+
+                    .btns {
+                        @include likeComment;
+                        button {
+                            @include nullify();
+                            background-color: white;
+                        }
+                    }
                 }
             }
-            
+
             .update {
                 @include center;
-                background-color: #353535;
+                background-color: white;
+                border-style: solid;
+                border-color: rgb(204, 204, 204);
                 flex-direction: column;
+                border-width: 1px;
                 padding: 1rem;
+                @include box-shadow;
                 .textfield{
                     width: 100%;
                     padding: 3rem 0;
                     border-radius: 4px;
-                    border-style: none;
+                    border-style: solid;
+                    border-color: rgb(204, 204, 204);
+                    border-width: 1px;
                 }
                 .btns {
                     @include center;
                     justify-content: space-between;
-                    width: 100%;
+                    width: 98%;
                     .btn {
                         width: 48%;
                         margin-top: 1rem ;
                         @include nullify;
-                        background-color: rgb(172, 172, 172);
-                        border-style: none;
-                        border-radius: 4px;
-
-                        padding: 1rem 0;
                         @include center;
+                        @include btn;
 
                     }
                 }
             }
+
+
+
         }
     }
 

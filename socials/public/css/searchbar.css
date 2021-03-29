@@ -15,6 +15,9 @@ body nav .pages {
 body nav .pages a {
   text-decoration: none;
   color: black;
+  -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0.199);
+          box-shadow: 0 0 0 rgba(0, 0, 0, 0.199);
+  border-style: none;
   font-size: 1.5rem;
   margin-right: 1rem;
 }

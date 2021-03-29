@@ -2,6 +2,8 @@
 $signInColor: #f0ebe5;
 $colorButton: #3b3b3b;
 
+$imagewidth:3.5rem;
+$imagehight:3rem;
 
 
 @mixin center {
@@ -37,5 +39,19 @@ $colorButton: #3b3b3b;
 @mixin nullify {
     text-decoration: none;
     color: black;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.199);
+    border-style: none;
+
 }
 
+
+@mixin likeComment {
+    display: flex;
+    @include nullify();
+    
+    .fa {
+        @include nullify();
+        @include center();
+    }
+    
+}
