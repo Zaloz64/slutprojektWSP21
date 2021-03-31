@@ -16,8 +16,8 @@ def login_user(username, password)
 end
 
 def register_user(username, password)
+    db = connect_to_db()
     password_digest = BCrypt::Password.create(password)
-    db = SQLite3::Database.new('db/socialsDb.db')
     db.execute('INSERT INTO users (username,pwdigest) VALUES (?,?)',username,password_digest)
 end
 

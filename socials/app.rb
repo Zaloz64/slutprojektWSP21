@@ -58,14 +58,6 @@ post('/login') do
 end
 # Register Borde vara en post=?????
 
-post("/api/users") do
-  payload = JSON.parse(request.body.read)
-  pp payload
-  # username = payload['results'][0]['login']['username']
-  # password = payload['results'][0]['login']['password']
-  # register_user(username,password)
-end
-
 get('/users/new') do
 
   username = params[:username]
@@ -163,4 +155,18 @@ end
 
 
 
+
+
+
+
+
+
+# Generera användare samt posts
+
+post("/api/users") do
+  payload = JSON.parse(request.body.read)
+  username = payload['results'][0]['login']['username']
+  password = payload['results'][0]['login']['password']
+  register_user(username,password)
+end
 
