@@ -144,13 +144,30 @@ get('/posts/:id') do
   slim(:"posts/show", locals:{post:post,comments:comments, user:user})
 end
 
+post('/comments/create') do
+  comment = params[:comment]
+  date = getDate()
+  id = session[:id]
+  post_id = params[:post_id].to_i
+  create_comment(comment,date,id,post_id)
+  redirect("/posts/#{post_id}")
+end
+
+post('/comments/:id/delete') do
+  id = params[:id].to_i
+  delete_comment(id)
+  redirect('/media')
+end
 
 # like post
 
 get('/media/like') do 
-  post_id = params[:getpost]
+  post_id = params[:getpost].to_i
   user_id = session[:id]
+  p post_id
+  p user_id
   like_post(post_id, user_id)
+  redirect('/media')
 end
 
 

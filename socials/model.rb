@@ -73,12 +73,6 @@ def get_user_of_post(post_id)
     return user
 end
 
-def get_post_comments(post_id)
-    db = connect_to_db()
-    post = db.execute('SELECT * FROM comment_post_relation WHERE post_id = ?',post_id)
-    return post
-end
-
 def get_users()
     db = connect_to_db()
     users = db.execute('SELECT * FROM users')
@@ -91,11 +85,36 @@ end
 
 def like_post(post_id, user_id)
     db = connect_to_db()
-    # if db.execute('SELECT post_id FROM user_post_relation INNER JOIN posts ON user_post_relation.post_id = posts.id WHERE user_id = ?',user_id) == null
-        # db.execute('INSERT INTO likes (post_id,user_id) VALUES (?,?)', post_id, user_id)
-
-    posts = db.execute('SELECT post_id FROM likes WHERE user_id = ?',user_id)
-    p posts
+    if (db.execute('SELECT * FROM likes WHERE (user_id,post_id) = (?,?)', user_id,post_id) == [])
+        db.execute('INSERT INTO likes (post_id,user_id) VALUES (?,?)', post_id, user_id)
+    else
+        db.execute('DELETE FROM likes WHERE (user_id,post_id) = (?,?)', user_id,post_id)
+    end
 end
 
 
+# kan ha många komentarer....
+def get_post_comments(post_id)
+    db = connect_to_db()
+    post_relation = db.execute('SELECT * FROM comment_post_relation WHERE post_id = ?',post_id)
+    p post_relation
+    # comment_id = post_relation[0]['comment_id']
+    # p comment_id
+    # post = db.execute('SELECT * FROM comments WHERE id = ?',comment_id)
+    # p post
+    return post
+end
+
+def create_comment(comment, date, user_id, post_id)
+    db = connect_to_db()
+    db.execute('INSERT INTO comments (comment,date) VALUES (?,?)', comment,date)
+    comment_id = db.execute('SELECT id FROM comments WHERE (comment,date) = (?,?)',comment,date)
+    comment_id = comment_id[0]['id']
+    db.execute('INSERT INTO comment_post_relation (user_id, comment_id, post_id) VALUES (?,?,?)' ,user_id,comment_id,post_id)
+end
+
+def delete_comment(comment_id)
+    db = connect_to_db()
+    db.execute('DELETE FROM comments WHERE id = ?', comment_id)
+    db.execute('DELETE FROM comment_post_relation WHERE comment_id = ?', comment_id)
+end

@@ -7,12 +7,16 @@
     p = post[0]['text']
     p = user[0]['username']
 
-form action="" 
-    input type="text" placeholder="Write a comment"
-    input type="submit" 
+form action="/comments/create" method="post"
+    input type="text" placeholder="Write a comment" name="comment"
+    input name="post_id" value="#{post[0]['id']}"
+    input type="submit" value="Add comment"
 
 - comments.each do |comment|
     p = comment
+    form action="/comments/:id/delete" method="post" 
+        input type="submit" 
+
 
 
 
