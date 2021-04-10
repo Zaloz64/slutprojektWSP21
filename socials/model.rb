@@ -97,11 +97,11 @@ end
 def get_post_comments(post_id)
     db = connect_to_db()
     post_relation = db.execute('SELECT * FROM comment_post_relation WHERE post_id = ?',post_id)
-    p post_relation
-    # comment_id = post_relation[0]['comment_id']
-    # p comment_id
-    # post = db.execute('SELECT * FROM comments WHERE id = ?',comment_id)
-    # p post
+    post = []
+    post_relation.each do |comment|
+        comment_id = comment['comment_id']
+        post << db.execute('SELECT * FROM comments WHERE id = ?',comment_id)
+    end
     return post
 end
 

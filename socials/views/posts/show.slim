@@ -13,9 +13,10 @@ form action="/comments/create" method="post"
     input type="submit" value="Add comment"
 
 - comments.each do |comment|
-    p = comment
-    form action="/comments/:id/delete" method="post" 
-        input type="submit" 
+    p = comment[0]['comment']
+    p = comment[0]['date']
+    form action="/comments/#{comment[0]['id']}/delete" method="post" 
+        input type="submit" value="delete"
 
 
 

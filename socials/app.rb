@@ -27,12 +27,24 @@ get('/posts/edit') do
   slim(:"posts/edit", locals:{picture:session[:picture]})
 end
 
+
+
 get('/media') do
   usernames = get_users()
   username = get_user(session[:id].to_i)
   posts = get_posts_for_user(session[:id].to_i)
   allPosts = get_all_posts()
   slim(:"media/index",locals:{user:username, users:usernames, photos:posts, posts:allPosts})
+  # slim(:"media/index",locals:{user:username, users:usernames, photos:posts, posts:allPosts})
+
+end
+
+get('/media/edit') do
+  usernames = get_users()
+  username = get_user(session[:id].to_i)
+  posts = get_posts_for_user(session[:id].to_i)
+  allPosts = get_all_posts()
+  slim(:"media/edit",locals:{user:username, users:usernames, photos:posts, posts:allPosts})
   # slim(:"media/index",locals:{user:username, users:usernames, photos:posts, posts:allPosts})
 
 end
@@ -156,6 +168,7 @@ end
 post('/comments/:id/delete') do
   id = params[:id].to_i
   delete_comment(id)
+  p id
   redirect('/media')
 end
 
