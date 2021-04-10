@@ -24,6 +24,16 @@ function seeposts() {
   }
 }
 
+function followUser() {
+  if (document.querySelector('#followUser').innerHTML == "Follow") {
+    document.querySelector('#followUser').innerHTML = 'Unfollow';
+  }
+  else {
+    
+    document.querySelector('#followUser').innerHTML = 'Follow';
+  }
+}
+
 
 function signInOption() {
   signup = document.getElementsByClassName('signUp')[0]
