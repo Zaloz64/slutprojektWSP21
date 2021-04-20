@@ -34,6 +34,8 @@ def get_posts_for_user(user_id)
     return photos
 end
 
+
+# Behöver user, post comment ect
 def get_all_posts()
     db = connect_to_db()
     results_as_hash = true

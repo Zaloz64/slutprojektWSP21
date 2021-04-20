@@ -14,7 +14,6 @@ get('') do
   slim(:layout, locals:{users:users})
 end
 
-
 get('/') do
   slim(:signIn)
 end
@@ -27,16 +26,12 @@ get('/posts/edit') do
   slim(:"posts/edit", locals:{picture:session[:picture]})
 end
 
-
-
 get('/media') do
   usernames = get_users()
   username = get_user(session[:id].to_i)
   posts = get_posts_for_user(session[:id].to_i)
   allPosts = get_all_posts()
   slim(:"media/index",locals:{user:username, users:usernames, photos:posts, posts:allPosts})
-  # slim(:"media/index",locals:{user:username, users:usernames, photos:posts, posts:allPosts})
-
 end
 
 get('/media/edit') do
