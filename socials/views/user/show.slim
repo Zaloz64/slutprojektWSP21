@@ -16,7 +16,8 @@ main
                 h3 Followers <br> 0
                 h3 Follow <br> 0
             p Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur ab explicabo quaerat, consequatur hic est tempore veritatis libero laboriosam consectetur labore nihil? Cumque iure sequi incidunt, natus perferendis adipisci eveniet.
-        button id="followUser" onclick="followUser()" Follow
+        form action="/user/#{user['id']}/friendship" method="post" 
+            input type="submit" id="followUser" onclick="followUser()" Follow
         button id="profileButton" onclick="seeposts()" Written posts
 
         .profileContainer

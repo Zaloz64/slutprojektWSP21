@@ -4,7 +4,6 @@ require 'sqlite3'
 require 'bcrypt'
 require "sinatra/json"
 require 'json'
-# require "execjs"
 require_relative 'model.rb'
 
 enable :sessions
@@ -27,18 +26,24 @@ get('/posts/edit') do
 end
 
 get('/media') do
-  usernames = get_users()
   username = get_user(session[:id].to_i)
   posts = get_posts_for_user(session[:id].to_i)
-  allPosts = get_all_posts()
-  slim(:"media/index",locals:{user:username, users:usernames, photos:posts, posts:allPosts})
+  allPosts = get_all_posts(username)
+  slim(:"media/index",locals:{user:username, photos:posts, posts:allPosts})
 end
+
+
+
+
+
+
+
 
 get('/media/edit') do
   usernames = get_users()
   username = get_user(session[:id].to_i)
   posts = get_posts_for_user(session[:id].to_i)
-  allPosts = get_all_posts()
+  allPosts = get_all_posts(session[:id].to_i)
   slim(:"media/edit",locals:{user:username, users:usernames, photos:posts, posts:allPosts})
   # slim(:"media/index",locals:{user:username, users:usernames, photos:posts, posts:allPosts})
 
@@ -141,6 +146,13 @@ get('/user/:id') do
   slim(:"user/show", locals:{photos:photos,user:username})
 end
 
+post('/user/:id/friendship') do 
+  following = params[:id]
+  follower = session[:id]
+  frendship_update(follower, following)
+  redirect("/user/#{following}")
+end
+
 # See post
 
 get('/posts/:id') do
@@ -196,6 +208,7 @@ post("/api/users") do
 end
 
 post('/api/users/post') do
+  payload = JSON.parse(request.body.read)
 
 end
 

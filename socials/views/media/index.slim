@@ -22,7 +22,7 @@ main
                     .textPost 
                         .profile
                             img src="https://img.icons8.com/bubbles/100/000000/user.png"
-                            a href="posts/#{post['id']}" Username
+                            a href="posts/#{post['id']}" #{post['username']}
                         p = post['text']
                         .btns
                             a href="/posts/#{post['id']}" class="comment fa fa-comments fa-3x" aria-hidden="true"
@@ -32,7 +32,7 @@ main
                     img src="#{post['post']}" alt=""/
                     .postInfo
                         img src="https://img.icons8.com/bubbles/100/000000/user.png"
-                        a href="" Username 
+                        a href="" #{post['username']} 
                         p = post['text']
                         .btns
                             a href="/posts/#{post['id']}" class="comment fa fa-comments fa-3x" aria-hidden="true" 

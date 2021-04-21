@@ -6,6 +6,8 @@ def connect_to_db()
     return db
 end
 
+# Loging in
+
 def login_user(username, password)
     db = connect_to_db()
     result = db.execute("SELECT * FROM users WHERE username = ?",username).first
@@ -21,9 +23,11 @@ def register_user(username, password)
     db.execute('INSERT INTO users (username,pwdigest) VALUES (?,?)',username,password_digest)
 end
 
+
+
 def get_user(user_id)
     db = connect_to_db()
-    username = db.execute('SELECT username FROM users WHERE id = ?',user_id).first
+    username = db.execute('SELECT * FROM users WHERE id = ?',user_id).first
     return username
 end
 
@@ -36,11 +40,16 @@ end
 
 
 # Behöver user, post comment ect
-def get_all_posts()
+def get_all_posts(id)
     db = connect_to_db()
     results_as_hash = true
-    photos = db.execute('SELECT * FROM posts')
-    return photos
+    id = id['id'].to_i
+    post_data = db.execute('SELECT posts.id,posts.post,posts.text,posts.date, users.username FROM ((users_relations JOIN users ON users_relations.following = users.id) JOIN posts) WHERE follower = ?',id)
+    p post_data
+    # post_data = db.execute('')
+    # post_data = db.execute('SELECT posts.id, posts.post, posts.text, posts.date, users.id, users.username FROM ((users_relations INNER JOIN users ON users_relations.following = users.id) INNER JOIN posts ON user_post_relation.user_id = users_relations.following) WHERE following = ?',id)
+    # return post_data
+    return post_data
 end
 
 def new_post_pic(user_id, post, text,date)
@@ -120,3 +129,14 @@ def delete_comment(comment_id)
     db.execute('DELETE FROM comments WHERE id = ?', comment_id)
     db.execute('DELETE FROM comment_post_relation WHERE comment_id = ?', comment_id)
 end
+
+
+def frendship_update(follower, following)
+    db = connect_to_db()
+    if db.execute('SELECT * FROM users_relations WHERE (follower, following) = (?,?)',follower,following) != []
+        db.execute('DELETE FROM users_relations WHERE (follower, following) = (?,?)',follower,following)
+    else
+        db.execute('INSERT INTO users_relations (follower, following) VALUES (?,?)',follower,following)
+    end
+end
+
