@@ -1,5 +1,6 @@
 
 - if post[0]['post'] == '' 
+
     p = post[0]['text']
     p = user[0]['username']
 - else
@@ -7,16 +8,17 @@
     p = post[0]['text']
     p = user[0]['username']
 
-form action="/comments/create" method="post"
+form action="/comments/#{post[0]['id']}/create" method="post"
     input type="text" placeholder="Write a comment" name="comment"
-    input name="post_id" value="#{post[0]['id']}"
     input type="submit" value="Add comment"
 
 - comments.each do |comment|
     p = comment[0]['comment']
     p = comment[0]['date']
-    form action="/comments/#{comment[0]['id']}/delete" method="post" 
-        input type="submit" value="delete"
+    - if (user[0]['username'] == theuser['username'] )
+        form action="/comments/#{comment[0]['id']}/delete" method="post" 
+            input type="submit" value="delete"
+    
 
 
 

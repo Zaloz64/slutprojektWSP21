@@ -28,6 +28,9 @@ main
                             a href="/posts/#{post['id']}" class="comment fa fa-comments fa-3x" aria-hidden="true"
                             form action="/media/like" method="get"
                                 button.heart name="getpost" type="submit" value="#{post['id']}" <i class="fa fa-heart-o fa-3x"  onclick="likeBtn(this)" aria-hidden="true"></i>
+                            - if (post['username'] == user['username'])
+                                form action="/posts/#{post['id']}/delete" method="post" 
+                                    input type="submit" value="Delete"/
                 - else  
                     img src="#{post['post']}" alt=""/
                     .postInfo

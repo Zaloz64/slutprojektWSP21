@@ -32,26 +32,20 @@ get('/media') do
   slim(:"media/index",locals:{user:username, photos:posts, posts:allPosts})
 end
 
-
-
-
-
-
-
-
 get('/media/edit') do
   usernames = get_users()
   username = get_user(session[:id].to_i)
   posts = get_posts_for_user(session[:id].to_i)
-  allPosts = get_all_posts(session[:id].to_i)
-  slim(:"media/edit",locals:{user:username, users:usernames, photos:posts, posts:allPosts})
+  # allPosts = get_all_posts(session[:id].to_i)
+  slim(:"media/edit",locals:{user:username, users:usernames, photos:posts})
   # slim(:"media/index",locals:{user:username, users:usernames, photos:posts, posts:allPosts})
 
 end
 
 get('/media/profile') do 
   username = get_user(session[:id].to_i)
-  posts = get_posts_for_user(session[:id].to_i)
+  # posts = get_posts_for_user(session[:id].to_i)
+  posts = []
   slim(:"media/profile",locals:{user:username.first, photos:posts})
 end
 
@@ -160,14 +154,15 @@ get('/posts/:id') do
   post = get_a_post(id)
   comments = get_post_comments(id)
   user = get_user_of_post(id)
-  slim(:"posts/show", locals:{post:post,comments:comments, user:user})
+  theuser = get_user(session[:id].to_i)
+  slim(:"posts/show", locals:{post:post,comments:comments, user:user, theuser:theuser})
 end
 
-post('/comments/create') do
+post('/comments/:id/create') do
   comment = params[:comment]
   date = getDate()
   id = session[:id]
-  post_id = params[:post_id].to_i
+  post_id = params[:id].to_i
   create_comment(comment,date,id,post_id)
   redirect("/posts/#{post_id}")
 end

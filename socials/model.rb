@@ -44,7 +44,7 @@ def get_all_posts(id)
     db = connect_to_db()
     results_as_hash = true
     id = id['id'].to_i
-    post_data = db.execute('SELECT posts.id,posts.post,posts.text,posts.date, users.username FROM ((users_relations JOIN users ON users_relations.following = users.id) JOIN posts) WHERE follower = ?',id)
+    post_data = db.execute('SELECT posts.id,posts.post,posts.text,posts.date, users.username FROM ((users_relations JOIN users ON users_relations.following = users.id OR users_relations.follower = users.id) JOIN posts) WHERE follower = ?',id)
     p post_data
     # post_data = db.execute('')
     # post_data = db.execute('SELECT posts.id, posts.post, posts.text, posts.date, users.id, users.username FROM ((users_relations INNER JOIN users ON users_relations.following = users.id) INNER JOIN posts ON user_post_relation.user_id = users_relations.following) WHERE following = ?',id)
