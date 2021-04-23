@@ -10,7 +10,6 @@ enable :sessions
 
 before do
   @users = get_users()
-  p @users
 end
 
 get('') do
@@ -65,15 +64,17 @@ post('/login') do
   username = params[:username]
   password = params[:password]
   session[:picture] = "/img/image.png"
-  if session[:lastlogin] == nil || Time.now - session[:lastlogin] > 10
-    session[:lastlogin] = Time.now
+  if session[:lastlogin] == nil || Time.now - session[:lastlogin] > 1000
     if login_user(username, password) != "" 
       session[:id] = login_user(username, password)
       redirect('/media')
-    end      
+    end
+    session[:lastlogin] = Time.now
     session[:wrongPassword] = true
-    p 
+  else
+    session[:coldownPassword] = true
   end
+
   redirect('/')
 end
 

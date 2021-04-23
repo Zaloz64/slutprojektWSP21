@@ -11,6 +11,8 @@ main
             h2 Login
             - if wrongPassword == true 
                 p Wrong password
+            -if coldownPassword == true 
+                p Chillax...
             form action="login" method="post"
                 input type="text" name="username" placeholder="Username" 
                 input type="password" name="password" placeholder="Password"
