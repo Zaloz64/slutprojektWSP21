@@ -1,7 +1,6 @@
 link rel="stylesheet" href="\css\style.css"/
 
-
-main
+main 
     section
         <img src="\img\icons\Wavy_Gen-01_Single-07.jpg"/>
 
@@ -10,6 +9,8 @@ main
         button id="signInOption" type="button" onclick="signInOption()" Register
         .login
             h2 Login
+            - if wrongPassword == true 
+                p Wrong password
             form action="login" method="post"
                 input type="text" name="username" placeholder="Username" 
                 input type="password" name="password" placeholder="Password"

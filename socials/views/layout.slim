@@ -13,11 +13,12 @@ html lang="en"
       .logo Socials 
 
       .dropdown
-        <input class="search" class="dropbtn" id="myInput" onkeyup="filterFunction()" type="text" placeholder="Search..">
-        .dropdown-content
-          - if (defined?(users) != nil)
-            - users.each do |user| 
-              a.option href="user/#{user['id']}" #{user['username']}
+        <input list="ice-cream-flavors" id="ice-cream-choice" name="ice-cream-choice" onchange="location = this.value;" placeholder="Search.." />
+          <datalist id="ice-cream-flavors">
+            - if (defined?(users) != nil)
+              - @users.each do |user| 
+                <option value="user/#{user['id']}">#{user['username']}</option>
+
       .pages
         a.tag1 href="/media" Feed  
         a href="/media/profile" Profile  

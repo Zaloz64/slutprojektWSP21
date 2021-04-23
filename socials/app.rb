@@ -8,13 +8,18 @@ require_relative 'model.rb'
 
 enable :sessions
 
-get('') do
-  users = get_users()
-  slim(:layout, locals:{users:users})
+before do
+  @users = get_users()
+  p @users
 end
 
+get('') do
+  slim(:layout)
+end
+
+
 get('/') do
-  slim(:signIn)
+  slim(:signIn, locals:{wrongPassword:session[:wrongPassword], coldownPassword:session[:coldownPassword]})
 end
 
 get('/posts/new') do
@@ -25,11 +30,16 @@ get('/posts/edit') do
   slim(:"posts/edit", locals:{picture:session[:picture]})
 end
 
+get('/coldown') do
+  slim(:coldown)
+end
+
 get('/media') do
   username = get_user(session[:id].to_i)
   posts = get_posts_for_user(session[:id].to_i)
   allPosts = get_all_posts(username)
-  slim(:"media/index",locals:{user:username, photos:posts, posts:allPosts})
+  users = get_users()
+  slim(:"media/index",locals:{user:username, photos:posts, posts:allPosts,users:users})
 end
 
 get('/media/edit') do
@@ -54,14 +64,22 @@ end
 post('/login') do
   username = params[:username]
   password = params[:password]
-  session[:id] = login_user(username, password)
   session[:picture] = "/img/image.png"
-  if session[:id] != nil
-    redirect('/media')
-  else
-    "login failed"
+  if session[:lastlogin] == nil || Time.now - session[:lastlogin] > 10
+    session[:lastlogin] = Time.now
+    if login_user(username, password) != "" 
+      session[:id] = login_user(username, password)
+      redirect('/media')
+    end      
+    session[:wrongPassword] = true
+    p 
   end
+  redirect('/')
 end
+
+
+
+
 # Register Borde vara en post=?????
 
 get('/users/new') do

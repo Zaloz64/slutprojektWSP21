@@ -11,10 +11,13 @@ end
 def login_user(username, password)
     db = connect_to_db()
     result = db.execute("SELECT * FROM users WHERE username = ?",username).first
-    pwdigest = result["pwdigest"]
-    if BCrypt::Password.new(pwdigest) == password
-        return result["id"]
+    if result != nil
+        pwdigest = result["pwdigest"]
+        if BCrypt::Password.new(pwdigest) == password
+            return result["id"]
+        end
     end
+    return ""
 end
 
 def register_user(username, password)
@@ -22,8 +25,6 @@ def register_user(username, password)
     password_digest = BCrypt::Password.create(password)
     db.execute('INSERT INTO users (username,pwdigest) VALUES (?,?)',username,password_digest)
 end
-
-
 
 def get_user(user_id)
     db = connect_to_db()
@@ -44,7 +45,13 @@ def get_all_posts(id)
     db = connect_to_db()
     results_as_hash = true
     id = id['id'].to_i
-    post_data = db.execute('SELECT posts.id,posts.post,posts.text,posts.date, users.username FROM ((users_relations JOIN users ON users_relations.following = users.id OR users_relations.follower = users.id) JOIN posts) WHERE follower = ?',id)
+    post_data = db.execute('SELECT DISTINCT posts.id, posts.date, posts.post, posts.text, followers.username, followers.id FROM users  
+        JOIN users_relations ON users_relations.follower = users.id
+        JOIN users as followers on users_relations.following = followers.id
+        JOIN user_post_relation on user_post_relation.user_id = followers.id 
+        JOIN posts ON posts.id = user_post_relation.post_id
+        WHERE users.id = ?
+        ',id)
     p post_data
     # post_data = db.execute('')
     # post_data = db.execute('SELECT posts.id, posts.post, posts.text, posts.date, users.id, users.username FROM ((users_relations INNER JOIN users ON users_relations.following = users.id) INNER JOIN posts ON user_post_relation.user_id = users_relations.following) WHERE following = ?',id)
