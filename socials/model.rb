@@ -23,7 +23,11 @@ end
 def register_user(username, password)
     db = connect_to_db()
     password_digest = BCrypt::Password.create(password)
-    db.execute('INSERT INTO users (username,pwdigest) VALUES (?,?)',username,password_digest)
+    if db.execute('SELECT * FROM users WHERE username = ?', username) == []
+        db.execute('INSERT INTO users (username,pwdigest) VALUES (?,?)',username,password_digest)
+        return false
+    end
+    return true
 end
 
 def get_user(user_id)
@@ -43,7 +47,6 @@ end
 # Behöver user, post comment ect
 def get_all_posts(id)
     db = connect_to_db()
-    results_as_hash = true
     id = id['id'].to_i
     post_data = db.execute('SELECT DISTINCT posts.id, posts.date, posts.post, posts.text, followers.username, followers.id FROM users  
         JOIN users_relations ON users_relations.follower = users.id

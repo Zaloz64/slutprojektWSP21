@@ -9,20 +9,28 @@ main
         button id="signInOption" type="button" onclick="signInOption()" Register
         .login
             h2 Login
-            - if wrongPassword == true 
-                p Wrong password
             -if coldownPassword == true 
-                p Chillax...
+                p Try again in a couple of seconds
+            -if isempty == true 
+                p Somting was missing
             form action="login" method="post"
                 input type="text" name="username" placeholder="Username" 
+                - if wrongPassword == true 
+                    p Wrong password
                 input type="password" name="password" placeholder="Password"
                 input.btn type="submit" value="Login"
 
 
         .signUp
             h2 Register
+            - if isempty == true 
+                p Somting was missing
             form action="/users/new" methode="post"
+                - if usernameExsists == true 
+                        p Usersname already exists
                 input type="text" name="username" placeholder="Username" /
+                - if matchedPassword == false 
+                    p Password dosent match
                 input type="password" name="password" placeholder="Password"/
                 input type="password" name="password2" placeholder="Password confirmation"/
                 input.btn type="submit" value="Register"/

@@ -18,7 +18,7 @@ end
 
 
 get('/') do
-  slim(:signIn, locals:{wrongPassword:session[:wrongPassword], coldownPassword:session[:coldownPassword]})
+  slim(:signIn, locals:{wrongPassword:session[:wrongPassword], coldownPassword:session[:coldownPassword], matchedPassword:session[:matchedPassword], isempty:session[:isempty],usernameExsists:session[:usernameExsists]})
 end
 
 get('/posts/new') do
@@ -64,22 +64,23 @@ post('/login') do
   username = params[:username]
   password = params[:password]
   session[:picture] = "/img/image.png"
-  if session[:lastlogin] == nil || Time.now - session[:lastlogin] > 1000
+  if session[:lastlogin] == nil || Time.now - session[:lastlogin] > 10
     if login_user(username, password) != "" 
       session[:id] = login_user(username, password)
       redirect('/media')
+      session[:wrongPassword] = false
+      session[:coldownPassword] = false
     end
     session[:lastlogin] = Time.now
     session[:wrongPassword] = true
+    session[:coldownPassword] = false
   else
+    session[:wrongPassword] = false
     session[:coldownPassword] = true
   end
 
   redirect('/')
 end
-
-
-
 
 # Register Borde vara en post=?????
 
@@ -88,14 +89,17 @@ get('/users/new') do
   username = params[:username]
   password = params[:password]
   password2 = params[:password2]
-  
-  if password == password2
-    register_user(username, password)
-    redirect('/')
+
+  if !empty(username) && !empty(password) && !empty(password2)
+    if password == password2
+      session[:usernameExsists] = register_user(username, password)
+    else
+      session[:matchedPassword] = false
+    end
   else
-    # context = getJSFile()
-    # context.call()
+    session[:isempty] = true
   end
+  redirect('/')
 end
 
 
@@ -207,7 +211,12 @@ end
 
 
 
-
+def empty(string)
+  if string.length() != 0
+    return false
+  end
+  return true
+end
 
 
 
