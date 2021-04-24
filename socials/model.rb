@@ -55,10 +55,6 @@ def get_all_posts(id)
         JOIN posts ON posts.id = user_post_relation.post_id
         WHERE users.id = ?
         ',id)
-    p post_data
-    # post_data = db.execute('')
-    # post_data = db.execute('SELECT posts.id, posts.post, posts.text, posts.date, users.id, users.username FROM ((users_relations INNER JOIN users ON users_relations.following = users.id) INNER JOIN posts ON user_post_relation.user_id = users_relations.following) WHERE following = ?',id)
-    # return post_data
     return post_data
 end
 
