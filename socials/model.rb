@@ -47,7 +47,7 @@ module Model
         db = connect_to_db()
         password_digest = BCrypt::Password.create(password)
         if db.execute('SELECT * FROM users WHERE username = ?', username) == []
-            db.execute('INSERT INTO users (username,pwdigest) VALUES (?,?)',username,password_digest)
+            db.execute('INSERT INTO users (username,pwdigest,img,bio) VALUES (?,?,?,?)',username,password_digest,"https://img.icons8.com/bubbles/100/000000/user.png","this is your bio")
             return false
         end
         return true

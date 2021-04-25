@@ -15,7 +15,12 @@ include Model
 # Cheacks to see if user is admin
 before do
   @users = get_users()
+  p @users
   @isAdmin = isAdmin(session[:id])
+end
+
+get('') do
+ slim(:layout)
 end
 
 # Landing page
