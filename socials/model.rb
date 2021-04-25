@@ -50,12 +50,12 @@ def get_all_posts(id)
     id = id['id'].to_i
     post_data = db.execute('SELECT DISTINCT posts.id, posts.date, posts.post, posts.text, followers.username, followers.id FROM users  
         JOIN users_relations ON users_relations.follower = users.id
-        JOIN users as followers on users_relations.following = followers.id
+        JOIN users as followers on users_relations.following = followers.id OR users.id
         JOIN user_post_relation on user_post_relation.user_id = followers.id 
         JOIN posts ON posts.id = user_post_relation.post_id
         WHERE users.id = ?
         ',id)
-    return post_data
+    return post_data.reverse!
 end
 
 def new_post_pic(user_id, post, text,date)

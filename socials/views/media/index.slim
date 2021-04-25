@@ -3,7 +3,7 @@ link rel="stylesheet" href="\css\socials.css"/
 main 
     aside 
         .maininfo 
-            <img src="https://img.icons8.com/bubbles/100/000000/user.png"/>
+            <img src="#{user['img']}"/>
             p #{user['username']}!
             a href="/posts/new" +
 
@@ -29,8 +29,8 @@ main
                             form action="/media/like" method="get"
                                 button.heart name="getpost" type="submit" value="#{post['id']}" <i class="fa fa-heart-o fa-3x"  onclick="likeBtn(this)" aria-hidden="true"></i>
                             - if (post['username'] == user['username'])
-                                form action="/posts/#{post['id']}/delete" method="post" 
-                                    input type="submit" value="Delete"/
+                                form action="/posts/#{post['id']}/delete" method="post"  
+                                    button type="submit" value="#{post['id']}" <i class="fa fa-trash fa-3x"  onclick="likeBtn(this)" aria-hidden="true"></i>
                 - else  
                     img src="#{post['post']}" alt=""/
                     .postInfo

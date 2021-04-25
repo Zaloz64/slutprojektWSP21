@@ -25,7 +25,7 @@ main
             h2 Register
             - if isempty == true 
                 p Somting was missing
-            form action="/users/new" methode="post"
+            form action="/users/new" method="post"
                 - if usernameExsists == true 
                         p Usersname already exists
                 input type="text" name="username" placeholder="Username" /

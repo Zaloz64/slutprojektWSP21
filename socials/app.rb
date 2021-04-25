@@ -53,9 +53,8 @@ end
 
 get('/media/profile') do 
   username = get_user(session[:id].to_i)
-  # posts = get_posts_for_user(session[:id].to_i)
-  posts = []
-  slim(:"media/profile",locals:{user:username.first, photos:posts})
+  posts = get_posts_for_user(session[:id].to_i)
+  slim(:"media/profile",locals:{user:username, photos:posts})
 end
 
 
@@ -84,7 +83,7 @@ end
 
 # Register Borde vara en post=?????
 
-get('/users/new') do
+post('/users/new') do
 
   username = params[:username]
   password = params[:password]
@@ -115,7 +114,6 @@ post('/upload') do
     File.open(path, 'wb') do |f|
       f.write(file.read)
     end
-
     # add pathway user and stuffsssss.
 
   end
