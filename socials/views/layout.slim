@@ -15,9 +15,8 @@ html lang="en"
       .dropdown
         <input list="ice-cream-flavors" id="ice-cream-choice" name="ice-cream-choice" onchange="location = this.value;" placeholder="Search.." />
           <datalist id="ice-cream-flavors">
-            - if (defined?(users) != nil)
-              - @users.each do |user| 
-                <option value="user/#{user['id']}">#{user['username']}</option>
+            - @users.each do |user| 
+              <option value="user/#{user['id']}">#{user['username']}</option>
 
       .pages
         a.tag1 href="/media" Feed  

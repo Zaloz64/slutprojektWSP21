@@ -15,12 +15,7 @@ include Model
 # Cheacks to see if user is admin
 before do
   @users = get_users()
-  p @users
   @isAdmin = isAdmin(session[:id])
-end
-
-get('') do
- slim(:layout)
 end
 
 # Landing page
@@ -85,8 +80,10 @@ post('/users/new') do
       session[:usernameExsists] = register_user(username, password)
     else
       session[:matchedPassword] = false
+      session[:isempty] = false
     end
   else
+    session[:matchedPassword] = true
     session[:isempty] = true
   end
   redirect('/')
