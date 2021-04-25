@@ -40,6 +40,9 @@ main section .information img {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  height: 6rem;
+  width: 7rem;
+  border-radius: 100%;
 }
 
 main section .information .stats {

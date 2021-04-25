@@ -13,13 +13,16 @@ link rel="stylesheet" href="\css\socials.css"/
 form action="/comments/#{post[0]['id']}/create" method="post"
     input type="text" placeholder="Write a comment" name="comment"
     input type="submit" value="Add comment"
-
+p = comments
 - comments.each do |comment|
     p = comment[0]['comment']
     p = comment[0]['date']
-    - if (user[0]['username'] == theuser['username'] )
-        form action="/comments/#{comment[0]['id']}/delete" method="post" 
-            input type="submit" value="delete"
+    p = comment
+    p #{user[0]['username']}
+    / p #{theuser['username']}
+    / - if (user[0]['username'] == theuser['username'] )
+    /     form action="/comments/#{comment[0]['id']}/delete" method="post" 
+    /         input type="submit" value="delete"
     
 
 

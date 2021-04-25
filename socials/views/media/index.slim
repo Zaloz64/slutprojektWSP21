@@ -21,7 +21,7 @@ main
                 - if (post['post'] == "") 
                     .textPost 
                         .profile
-                            img src="https://img.icons8.com/bubbles/100/000000/user.png"
+                            img src="#{post['img']}"
                             a href="posts/#{post['id']}" #{post['username']}
                         p = post['text']
                         .btns
@@ -34,13 +34,15 @@ main
                 - else  
                     img src="#{post['post']}" alt=""/
                     .postInfo
-                        img src="https://img.icons8.com/bubbles/100/000000/user.png"
+                        img src="#{post['img']}"
                         a href="" #{post['username']} 
                         p = post['text']
                         .btns
                             a href="/posts/#{post['id']}" class="comment fa fa-comments fa-3x" aria-hidden="true" 
                             button.heart <i class="fa fa-heart-o fa-3x" onclick="likeBtn(this)" aria-hidden="true"></i>
-                        / <i class="fa fa-heart" aria-hidden="true"> if liked
+                            - if (post['username'] == user['username'])
+                                form action="/posts/#{post['id']}/delete" method="post"  
+                                    button type="submit" value="#{post['id']}" <i class="fa fa-trash fa-3x"  onclick="likeBtn(this)" aria-hidden="true"></i>
 
 
 script src="/js/script.js"  

@@ -55,3 +55,9 @@ $imagehight:3rem;
     }
     
 }
+
+@mixin profilePhoto {
+    height: $imagehight*2;
+    width: $imagewidth*2;
+    border-radius: 100%;
+}

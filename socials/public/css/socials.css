@@ -52,22 +52,10 @@ body main aside .maininfo a {
   font-weight: 900;
 }
 
-body main aside .smallContianer {
-  margin-top: 2rem;
-  max-width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-body main aside .smallContianer .smallImg {
-  height: 4.5rem;
-  max-width: 5.25rem;
+body main aside .maininfo img {
+  height: 6rem;
+  width: 7rem;
+  border-radius: 100%;
 }
 
 body main section {
@@ -126,6 +114,9 @@ body main section .conatinerPost .textPost .profile img {
   border-style: none;
   width: 10rem;
   height: auto;
+  height: 6rem;
+  width: 7rem;
+  border-radius: 100%;
 }
 
 body main section .conatinerPost .textPost .profile a {
@@ -241,6 +232,9 @@ body main section .conatinerPost .postInfo img {
   border-style: none;
   width: 10rem;
   height: auto;
+  height: 6rem;
+  width: 7rem;
+  border-radius: 100%;
 }
 
 body main section .conatinerPost .postInfo a {

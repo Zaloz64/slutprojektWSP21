@@ -16,12 +16,13 @@ main {
             grid-template-areas: 
                 "img stat txt";
 
-            // grid-auto-columns: 1fr 1fr;
             grid-template-columns: 1fr 4fr 5fr;       
 
             img {
                 grid-area: img;
                 @include center;
+                @include profilePhoto;
+
             }
 
             .stats {

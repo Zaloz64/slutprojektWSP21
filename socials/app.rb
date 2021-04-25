@@ -33,32 +33,8 @@ get('/coldown') do
   slim(:coldown)
 end
 
-get('/media') do
-  username = get_user(session[:id].to_i)
-  posts = get_posts_for_user(session[:id].to_i)
-  allPosts = get_all_posts(username)
-  users = get_users()
-  slim(:"media/index",locals:{user:username, photos:posts, posts:allPosts,users:users})
-end
+# Logging in 
 
-get('/media/edit') do
-  usernames = get_users()
-  username = get_user(session[:id].to_i)
-  posts = get_posts_for_user(session[:id].to_i)
-  # allPosts = get_all_posts(session[:id].to_i)
-  slim(:"media/edit",locals:{user:username, users:usernames, photos:posts})
-  # slim(:"media/index",locals:{user:username, users:usernames, photos:posts, posts:allPosts})
-
-end
-
-get('/media/profile') do 
-  username = get_user(session[:id].to_i)
-  posts = get_posts_for_user(session[:id].to_i)
-  slim(:"media/profile",locals:{user:username, photos:posts})
-end
-
-
-# Logging in
 post('/login') do
   username = params[:username]
   password = params[:password]
@@ -81,7 +57,25 @@ post('/login') do
   redirect('/')
 end
 
-# Register Borde vara en post=?????
+
+get('/media') do
+  username = get_user(session[:id].to_i)
+  posts = get_posts_for_user(session[:id].to_i)
+  allPosts = get_all_posts(username)
+  users = get_users()
+  slim(:"media/index",locals:{user:username, photos:posts, posts:allPosts,users:users})
+end
+
+get('/media/edit') do
+  username = get_user(session[:id].to_i)
+  slim(:"media/edit",locals:{user:username})
+end
+
+get('/media/profile') do 
+  username = get_user(session[:id].to_i)
+  posts = get_posts_for_user(session[:id].to_i)
+  slim(:"media/profile",locals:{user:username, photos:posts})
+end
 
 post('/users/new') do
 
@@ -106,25 +100,32 @@ end
 
 post('/upload') do
   if params[:image] && params[:image][:filename]
-    filename = params[:image][:filename]
-    file = params[:image][:tempfile]
-    path = "./public/uploads/#{filename}"
-    session[:picture] = "/uploads/#{filename}"
-
-    File.open(path, 'wb') do |f|
-      f.write(file.read)
-    end
-    # add pathway user and stuffsssss.
-
+    upload_img(params[:image][:filename], params[:image][:tempfile])
   end
   redirect('/posts/edit')
   # Need a rescue 
+end
+
+def upload_img(filename,file)
+  path = "./public/uploads/#{filename}"
+  session[:picture] = "/uploads/#{filename}"
+
+  File.open(path, 'wb') do |f|
+    f.write(file.read)
+  end
 end
 
 post('/posts/edit') do 
   text = params[:description]
   date = getDate()
   new_post_pic(session[:id], session[:picture],text,date)
+  redirect('/media')
+end
+
+post('/posts/:id/delete') do 
+  id = params[:id].to_i
+  p id
+  delete_a_post(id)
   redirect('/media')
 end
 
@@ -156,9 +157,10 @@ end
 
 get('/user/:id') do
   id = params[:id].to_i
+  the_user = get_user(session[:id])
   username = get_user(id)
   photos = get_posts_for_user(id)
-  slim(:"user/show", locals:{photos:photos,user:username})
+  slim(:"user/show", locals:{photos:photos,user:username, the_user:the_user})
 end
 
 post('/user/:id/friendship') do 
@@ -200,10 +202,30 @@ end
 get('/media/like') do 
   post_id = params[:getpost].to_i
   user_id = session[:id]
-  p post_id
-  p user_id
   like_post(post_id, user_id)
   redirect('/media')
+end
+
+post('/user/update') do
+  bio = params[:bio]
+  update_bio(session[:id], bio)
+  redirect('/media')
+end
+
+post('/user/upload') do 
+  if params[:image] && params[:image][:filename]
+    upload_img(params[:image][:filename], params[:image][:tempfile])
+  end
+  update_profile_img(session[:id], session[:picture])
+  redirect('/media')
+
+
+end
+
+
+get('/logout') do
+  session[:id] = nil
+  redirect('/')
 end
 
 

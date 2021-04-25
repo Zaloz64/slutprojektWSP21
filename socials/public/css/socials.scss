@@ -34,21 +34,11 @@ body{
                     font-size: 1.5rem;
                     font-weight: 900;
                 }
-            }
 
-            .smallContianer{
-                margin-top: 2rem;
-                max-width: 100%;
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-between;
-
-                .smallImg {
-                    height: $imagehight*1.5;
-                    max-width: $imagewidth*1.5;
-
+                img {
+                    @include profilePhoto;
                 }
-            }            
+            }       
         }
 
         section {
@@ -65,6 +55,9 @@ body{
                     "l l";
                 margin-top: 1rem;
 
+                
+
+
                 .textPost {
                     grid-area: l;
                     padding: 1rem;
@@ -79,6 +72,7 @@ body{
                             @include nullify;
                             width: 10rem;
                             height: auto;
+                            @include profilePhoto;
                         }
                         a {
                             @include nullify;
@@ -125,6 +119,7 @@ body{
                         @include nullify();
                         width: 10rem;
                         height: auto;
+                        @include profilePhoto;
                     }
                     a {
                         @include nullify();

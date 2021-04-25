@@ -48,7 +48,7 @@ end
 def get_all_posts(id)
     db = connect_to_db()
     id = id['id'].to_i
-    post_data = db.execute('SELECT DISTINCT posts.id, posts.date, posts.post, posts.text, followers.username, followers.id FROM users  
+    post_data = db.execute('SELECT DISTINCT posts.id, posts.date, posts.post, posts.text, followers.username, followers.img FROM users  
         JOIN users_relations ON users_relations.follower = users.id
         JOIN users as followers on users_relations.following = followers.id OR users.id
         JOIN user_post_relation on user_post_relation.user_id = followers.id 
@@ -96,8 +96,10 @@ def get_users()
     return users
 end
 
-def delete_a_post(user_id)
-    
+def delete_a_post(post_id)
+    db = connect_to_db()
+    db.execute('DELETE FROM posts WHERE id = ?', post_id)
+    db.execute('DELETE FROM user_post_relation WHERE post_id = ?', post_id)
 end
 
 def like_post(post_id, user_id)
@@ -113,12 +115,11 @@ end
 # kan ha många komentarer....
 def get_post_comments(post_id)
     db = connect_to_db()
-    post_relation = db.execute('SELECT * FROM comment_post_relation WHERE post_id = ?',post_id)
-    post = []
-    post_relation.each do |comment|
-        comment_id = comment['comment_id']
-        post << db.execute('SELECT * FROM comments WHERE id = ?',comment_id)
-    end
+    post = db.execute('SELECT comments.comment, comments.date, users.username FROM comment_post_relation 
+        JOIN comments ON comments.id = comment_post_relation.comment_id
+        JOIN users ON users.id = comment_post_relation.user_id
+        WHERE post_id = ?', post_id)
+    p post
     return post
 end
 
@@ -146,3 +147,12 @@ def frendship_update(follower, following)
     end
 end
 
+def update_bio(id,bio)
+    db = connect_to_db()
+    db.execute('UPDATE users SET bio = ? WHERE id = ?',bio,id)
+end
+
+def update_profile_img(id,img)
+    db = connect_to_db()
+    db.execute('UPDATE users SET img = ? WHERE id = ?',img,id)
+end
