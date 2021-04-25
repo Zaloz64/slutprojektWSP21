@@ -10,6 +10,7 @@ function likeBtn(obj) {
 }
 
 function seeposts() {
+  console.log("in")
   imgpost = document.getElementsByClassName('imgposts')[0]
   textpost = document.getElementsByClassName('textposts')[0]
   if (imgpost.style.display == "none") {

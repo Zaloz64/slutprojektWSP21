@@ -6,6 +6,15 @@ def connect_to_db()
     return db
 end
 
+def isAdmin(user_id)
+    db = connect_to_db()
+    if db.execute('SELECT * FROM admin WHERE user_id = ?', user_id) == []
+        return false
+    else
+        return true
+    end
+end
+
 # Loging in
 
 def login_user(username, password)
@@ -39,7 +48,7 @@ end
 def get_posts_for_user(user_id)
     db = connect_to_db()
     results_as_hash = true
-    photos = db.execute('SELECT post FROM user_post_relation INNER JOIN posts ON user_post_relation.post_id = posts.id WHERE user_id = ?',user_id)
+    photos = db.execute('SELECT * FROM user_post_relation INNER JOIN posts ON user_post_relation.post_id = posts.id WHERE user_id = ?',user_id)
     return photos
 end
 
@@ -72,10 +81,6 @@ def new_post(user_id, text, date)
     db.execute('INSERT INTO user_post_relation (user_id,post_id) VALUES (?,?)',user_id, post_id[-1].first[1])
 end
 
-def edit_post
-    
-end
-
 def get_a_post(post_id)
     db = connect_to_db()
     post = db.execute('SELECT * FROM posts WHERE id = ?',post_id)
@@ -84,9 +89,9 @@ end
 
 def get_user_of_post(post_id)
     db = connect_to_db()
-    results_as_hash = true
-    user_id = db.execute('SELECT user_id FROM user_post_relation WHERE post_id = ?',post_id)
-    user = db.execute('SELECT * FROM users WHERE id = ?',user_id[0]['user_id'])
+    user = db.execute('SELECT DISTINCT users.id, users.username FROM user_post_relation 
+        JOIN users ON users.id = user_post_relation.user_id
+        WHERE post_id = ?', post_id)
     return user
 end
 
@@ -100,6 +105,11 @@ def delete_a_post(post_id)
     db = connect_to_db()
     db.execute('DELETE FROM posts WHERE id = ?', post_id)
     db.execute('DELETE FROM user_post_relation WHERE post_id = ?', post_id)
+    db.execute('DELETE FROM comment_post_relation WHERE post_id = ?', post_id)
+    comment_id = db.execute('SELECT comment_id FROM comment_post_relation WHERE post_id = ?', post_id)
+    comment_id.each do comment
+        delete_comment(comment['comment_id'])
+    end
 end
 
 def like_post(post_id, user_id)
@@ -115,11 +125,10 @@ end
 # kan ha många komentarer....
 def get_post_comments(post_id)
     db = connect_to_db()
-    post = db.execute('SELECT comments.comment, comments.date, users.username FROM comment_post_relation 
+    post = db.execute('SELECT comments.id, comments.comment, comments.date, users.username FROM comment_post_relation 
         JOIN comments ON comments.id = comment_post_relation.comment_id
         JOIN users ON users.id = comment_post_relation.user_id
         WHERE post_id = ?', post_id)
-    p post
     return post
 end
 

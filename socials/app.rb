@@ -10,19 +10,19 @@ enable :sessions
 
 before do
   @users = get_users()
+  @isAdmin = isAdmin(session[:id])
 end
 
 get('') do
   slim(:layout)
 end
 
-
 get('/') do
   slim(:signIn, locals:{wrongPassword:session[:wrongPassword], coldownPassword:session[:coldownPassword], matchedPassword:session[:matchedPassword], isempty:session[:isempty],usernameExsists:session[:usernameExsists]})
 end
 
 get('/posts/new') do
-  slim(:"posts/new", locals:{picture:session[:picture]})
+  slim(:"posts/new", locals:{picture:session[:picture],nofoto:session[:nofoto]})
 end
 
 get('/posts/edit') do 
@@ -57,13 +57,12 @@ post('/login') do
   redirect('/')
 end
 
-
 get('/media') do
   username = get_user(session[:id].to_i)
   posts = get_posts_for_user(session[:id].to_i)
   allPosts = get_all_posts(username)
   users = get_users()
-  slim(:"media/index",locals:{user:username, photos:posts, posts:allPosts,users:users})
+  slim(:"media/index",locals:{user:username, photos:posts, posts:allPosts,users:users, emptyComment:session[:emptyComment]})
 end
 
 get('/media/edit') do
@@ -74,6 +73,7 @@ end
 get('/media/profile') do 
   username = get_user(session[:id].to_i)
   posts = get_posts_for_user(session[:id].to_i)
+  p posts
   slim(:"media/profile",locals:{user:username, photos:posts})
 end
 
@@ -99,17 +99,19 @@ end
 # Uplode photo
 
 post('/upload') do
-  if params[:image] && params[:image][:filename]
+  if params[:image] == nil
+    session[:nofoto] = true
+    redirect('/posts/new')
+  elsif params[:image] && params[:image][:filename]
+    session[:nofoto] = false
     upload_img(params[:image][:filename], params[:image][:tempfile])
+    redirect('/posts/edit')
   end
-  redirect('/posts/edit')
-  # Need a rescue 
 end
 
 def upload_img(filename,file)
   path = "./public/uploads/#{filename}"
   session[:picture] = "/uploads/#{filename}"
-
   File.open(path, 'wb') do |f|
     f.write(file.read)
   end
@@ -124,15 +126,19 @@ end
 
 post('/posts/:id/delete') do 
   id = params[:id].to_i
-  p id
   delete_a_post(id)
   redirect('/media')
 end
 
 post('/create') do
   text = params[:textfield]
-  date = getDate()
-  new_post(session[:id], text, date)
+  if text != ""
+    date = getDate()
+    new_post(session[:id], text, date)
+    session[:emptyComment] = false
+  else
+    session[:emptyComment] = true
+  end
   redirect('/media')
 end
 
@@ -193,11 +199,9 @@ end
 post('/comments/:id/delete') do
   id = params[:id].to_i
   delete_comment(id)
-  p id
   redirect('/media')
 end
 
-# like post
 
 get('/media/like') do 
   post_id = params[:getpost].to_i
@@ -218,8 +222,6 @@ post('/user/upload') do
   end
   update_profile_img(session[:id], session[:picture])
   redirect('/media')
-
-
 end
 
 

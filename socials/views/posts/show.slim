@@ -1,29 +1,28 @@
 link rel="stylesheet" href="\css\socials.css"/
+link rel="stylesheet" href="\css\comments.css"/
 
+main 
 
-- if post[0]['post'] == '' 
+    - if post[0]['post'] == '' 
 
-    p = post[0]['text']
-    p = user[0]['username']
-- else
-    img src="#{post[0]['post']}" alt=""/
-    p = post[0]['text']
-    p = user[0]['username']
+        p = post[0]['text']
+        p = user[0]['username']
+    - else
+        img src="#{post[0]['post']}" alt=""/
+        p = post[0]['text']
+        p = user[0]['username']
 
-form action="/comments/#{post[0]['id']}/create" method="post"
-    input type="text" placeholder="Write a comment" name="comment"
-    input type="submit" value="Add comment"
-p = comments
-- comments.each do |comment|
-    p = comment[0]['comment']
-    p = comment[0]['date']
-    p = comment
-    p #{user[0]['username']}
-    / p #{theuser['username']}
-    / - if (user[0]['username'] == theuser['username'] )
-    /     form action="/comments/#{comment[0]['id']}/delete" method="post" 
-    /         input type="submit" value="delete"
-    
+    form action="/comments/#{post[0]['id']}/create" method="post"
+        input type="text" placeholder="Write a comment" name="comment"
+        input type="submit" value="Add comment"
+        
+    - comments.each do |comment|
+        p = comment['comment']
+        p = comment['date']
+        - if (comment['username'] == theuser['username'] || @isAdmin == true)
+            form action="/comments/#{comment['id']}/delete" method="post" 
+                input type="submit" value="delete"
+        
 
 
 

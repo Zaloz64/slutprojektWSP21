@@ -1,0 +1,10 @@
+@import '_variables';
+
+main {
+    flex-direction: column;
+    img {
+        width: 10*$imagewidth;
+        height: 10*$imagehight;
+        
+    }
+}

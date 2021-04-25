@@ -100,4 +100,8 @@ main section .profileContainer img {
 main section .profileContainer p {
   width: 100%;
 }
+
+main section .profileContainer .textposts {
+  display: none;
+}
 /*# sourceMappingURL=profile.css.map */

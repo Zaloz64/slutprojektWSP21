@@ -7,13 +7,12 @@ main
             p #{user['username']}!
             a href="/posts/new" +
 
-
-
-    section   
+    section  
+        - if emptyComment == true 
+            p The comment was empty
         form.update action="create" method="post" 
             <input class="textfield" name="textfield" type="textarea" placeholder="Welcome back ! What is on your mind?">
             .btns 
-                a.btn href="/posts/new" Add photo 
                 input.btn type="submit" value="Post"
     
         - posts.each do |post|
@@ -28,7 +27,7 @@ main
                             a href="/posts/#{post['id']}" class="comment fa fa-comments fa-3x" aria-hidden="true"
                             form action="/media/like" method="get"
                                 button.heart name="getpost" type="submit" value="#{post['id']}" <i class="fa fa-heart-o fa-3x"  onclick="likeBtn(this)" aria-hidden="true"></i>
-                            - if (post['username'] == user['username'])
+                            - if (post['username'] == user['username']) || @isAdmin == true
                                 form action="/posts/#{post['id']}/delete" method="post"  
                                     button type="submit" value="#{post['id']}" <i class="fa fa-trash fa-3x"  onclick="likeBtn(this)" aria-hidden="true"></i>
                 - else  
@@ -40,7 +39,7 @@ main
                         .btns
                             a href="/posts/#{post['id']}" class="comment fa fa-comments fa-3x" aria-hidden="true" 
                             button.heart <i class="fa fa-heart-o fa-3x" onclick="likeBtn(this)" aria-hidden="true"></i>
-                            - if (post['username'] == user['username'])
+                            - if (post['username'] == user['username']) || @isAdmin == true
                                 form action="/posts/#{post['id']}/delete" method="post"  
                                     button type="submit" value="#{post['id']}" <i class="fa fa-trash fa-3x"  onclick="likeBtn(this)" aria-hidden="true"></i>
 

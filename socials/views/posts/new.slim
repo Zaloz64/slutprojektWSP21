@@ -1,6 +1,8 @@
 link rel="stylesheet" href="\css\post.css"/
 
 h1 Upload Image
+- if nofoto == true
+  p You havent uploaded a photo
 form action="/upload" method="post" enctype="multipart/form-data"
   input type="file" name="image"
   input type="submit" value="Next"

@@ -19,6 +19,7 @@ main
         
         button id="profileButton" onclick="seeposts()" Written posts
 
+
         .profileContainer
             .imgposts
                 - photos.each do |photo|
@@ -28,6 +29,7 @@ main
                 - photos.each do |photo|
                     - if photo['post'] == ''
                         p = "#{photo['text']}"
+
 
         
 

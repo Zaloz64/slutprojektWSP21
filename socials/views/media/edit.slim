@@ -1,18 +1,20 @@
 link rel="stylesheet" href="\css\socials.css"/
+link rel="stylesheet" href="\css\settings.css"/
 
+main 
 
-h1 Settings
+  h1 Settings
 
-h3 Bio
-form action="/user/update" method="post" 
-    input type="text" placeholder="bio" name="bio"
-    input type="submit" value="Submit"
+  h3 Bio
+  form action="/user/update" method="post" 
+      input type="text" placeholder="bio" name="bio" id="bio"
+      input type="submit" value="Submit" id="bioSubmit"
 
-h3 Profil bild
-form action="/user/upload" method="post" enctype="multipart/form-data"
-  input type="file" name="image"
-  input type="submit" value="Upload profile picture"
+  h3 Profil bild
+  form action="/user/upload" method="post" enctype="multipart/form-data"
+    input type="file" name="image"
+    input type="submit" value="Upload profile picture"
 
-h3 Log out
-form action="/logout" method="get" 
-  input type="submit" value="Log out"
+  h3 Log out
+  form action="/logout" method="get" 
+    input type="submit" value="Log out"
