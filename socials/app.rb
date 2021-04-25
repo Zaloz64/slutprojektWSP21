@@ -8,33 +8,37 @@ require_relative 'model.rb'
 
 enable :sessions
 
+include Model
+
+# Before lodaing page gets:
+# All users
+# Cheacks to see if user is admin
 before do
   @users = get_users()
   @isAdmin = isAdmin(session[:id])
 end
 
-get('') do
-  slim(:layout)
-end
-
+# Landing page
 get('/') do
   slim(:signIn, locals:{wrongPassword:session[:wrongPassword], coldownPassword:session[:coldownPassword], matchedPassword:session[:matchedPassword], isempty:session[:isempty],usernameExsists:session[:usernameExsists]})
 end
 
+# Create new post
 get('/posts/new') do
   slim(:"posts/new", locals:{picture:session[:picture],nofoto:session[:nofoto]})
 end
 
+# Edit new post
 get('/posts/edit') do 
   slim(:"posts/edit", locals:{picture:session[:picture]})
 end
 
-get('/coldown') do
-  slim(:coldown)
-end
 
-# Logging in 
-
+# Attempts to login into the application
+# @param [String] username användarnamnet
+# @param [String] password användarnamnet
+# * :error [Boolean] whether there was an empty input 
+# * :error [Boolean] whether it was the wrong password or username 
 post('/login') do
   username = params[:username]
   password = params[:password]
@@ -57,26 +61,14 @@ post('/login') do
   redirect('/')
 end
 
-get('/media') do
-  username = get_user(session[:id].to_i)
-  posts = get_posts_for_user(session[:id].to_i)
-  allPosts = get_all_posts(username)
-  users = get_users()
-  slim(:"media/index",locals:{user:username, photos:posts, posts:allPosts,users:users, emptyComment:session[:emptyComment]})
-end
-
-get('/media/edit') do
-  username = get_user(session[:id].to_i)
-  slim(:"media/edit",locals:{user:username})
-end
-
-get('/media/profile') do 
-  username = get_user(session[:id].to_i)
-  posts = get_posts_for_user(session[:id].to_i)
-  p posts
-  slim(:"media/profile",locals:{user:username, photos:posts})
-end
-
+# Attempts to sign up a new user
+# @param [String] username användarens namn
+# @param [String] password lösenord
+# @param [String] password2 confirmation av lösenord
+# If eny errors accour it redirects to the log in page with:
+# * :error [Boolean] whether there was an empty input 
+# * :error [Boolean] whether passwords did not match 
+# * :error [Boolean] whether the username is already used 
 post('/users/new') do
 
   username = params[:username]
@@ -95,9 +87,35 @@ post('/users/new') do
   redirect('/')
 end
 
+# Shows posts 
+# @param [Hash] username användarens info
+# @param [Hash] allPosts alla posts från följare inklusive sig själv
+get('/media') do
+  username = get_user(session[:id].to_i)
+  allPosts = get_all_posts(username)
+  slim(:"media/index",locals:{user:username, posts:allPosts, emptyComment:session[:emptyComment]})
+end
 
-# Uplode photo
+# Costumises the users profile
+# @param [Hash] username användarens info
+get('/media/edit') do
+  username = get_user(session[:id].to_i)
+  slim(:"media/edit",locals:{user:username})
+end
 
+# Shows the users profile
+# @param [Hash] username användarens info
+# @param [Hash] posts användarens posts
+get('/media/profile') do 
+  username = get_user(session[:id].to_i)
+  posts = get_posts_for_user(session[:id].to_i)
+  slim(:"media/profile",locals:{user:username, photos:posts})
+end
+
+# Chooses the image to upload
+# Trys to redirects to posts edit unless Image is empty
+# @param [String] Image
+# @param [String] Filename
 post('/upload') do
   if params[:image] == nil
     session[:nofoto] = true
@@ -109,6 +127,9 @@ post('/upload') do
   end
 end
 
+# Upload image to the project folder
+# @param [String] filename The filename
+# @param [String] file The file
 def upload_img(filename,file)
   path = "./public/uploads/#{filename}"
   session[:picture] = "/uploads/#{filename}"
@@ -117,6 +138,10 @@ def upload_img(filename,file)
   end
 end
 
+# Upload image to the feed with discripton and date
+# Redirects to media
+# @param [String] text Photo discription
+# @param [String] date The date of the photo uploaded
 post('/posts/edit') do 
   text = params[:description]
   date = getDate()
@@ -124,12 +149,19 @@ post('/posts/edit') do
   redirect('/media')
 end
 
+# Delets a post
+# Redirects to media
+# @param [Integer] id The id of the post
 post('/posts/:id/delete') do 
   id = params[:id].to_i
   delete_a_post(id)
   redirect('/media')
 end
 
+# Creates a post with only text
+# Redirects to media
+# @param [String] text Post text
+# * :error [Boolean] whether there was an empty input 
 post('/create') do
   text = params[:textfield]
   if text != ""
@@ -142,25 +174,19 @@ post('/create') do
   redirect('/media')
 end
 
-
+# Creates a string with the date
+# @return [String] date The current date
 def getDate()
   time = Time.now
   date = "#{time.year}-#{time.month}-#{time.day}"
   return date
 end
 
-def getJSFile()
-  source = open('/js/script.js').read
-  context = ExecJS.compile(source)
-  return context
-end
-
-# See user
-
-get('/user/') do
-  "User cant be found"
-end
-
+# Shows a specific users profile
+# @param [Integer] id The id of the user
+# @param [Hash] the_user The users information
+# @param [Hash] username The specific users information
+# @param [Hash] photos The specific users posts
 get('/user/:id') do
   id = params[:id].to_i
   the_user = get_user(session[:id])
@@ -169,6 +195,9 @@ get('/user/:id') do
   slim(:"user/show", locals:{photos:photos,user:username, the_user:the_user})
 end
 
+# Updates the friendship relationship
+# @param [Integer] following The id of the loged in user
+# @param [Integer] followier The id of the other user
 post('/user/:id/friendship') do 
   following = params[:id]
   follower = session[:id]
@@ -176,8 +205,12 @@ post('/user/:id/friendship') do
   redirect("/user/#{following}")
 end
 
-# See post
-
+# Shows the posts comments and the post
+# @param [Integer] id The id of the post
+# @param [Hash] post The posts information
+# @param [Hash] comments The posts comments
+# @param [Hash] user the posts user
+# @param [Hash] theuser the user
 get('/posts/:id') do
   id = params[:id].to_i
   post = get_a_post(id)
@@ -187,6 +220,11 @@ get('/posts/:id') do
   slim(:"posts/show", locals:{post:post,comments:comments, user:user, theuser:theuser})
 end
 
+# Creates a new comment
+# @param [String] comment The text of the comment
+# @param [String] date When the comment was written
+# @param [Integer] id The users id
+# @param [Integer] post_id The comments id
 post('/comments/:id/create') do
   comment = params[:comment]
   date = getDate()
@@ -196,13 +234,17 @@ post('/comments/:id/create') do
   redirect("/posts/#{post_id}")
 end
 
+# Delets a comment
+# @param [Integer] post_id The comments id
 post('/comments/:id/delete') do
   id = params[:id].to_i
   delete_comment(id)
   redirect('/media')
 end
 
-
+# Likes a post
+# @param [Integer] user_id The users id
+# @param [Integer] post_id The posts id
 get('/media/like') do 
   post_id = params[:getpost].to_i
   user_id = session[:id]
@@ -210,12 +252,17 @@ get('/media/like') do
   redirect('/media')
 end
 
+# Updates profile bio
+# @param [String] bio The discripton of the profild
 post('/user/update') do
   bio = params[:bio]
   update_bio(session[:id], bio)
   redirect('/media')
 end
 
+# Uploads a new profile image
+# @param [String] Image
+# @param [String] Filename
 post('/user/upload') do 
   if params[:image] && params[:image][:filename]
     upload_img(params[:image][:filename], params[:image][:tempfile])
@@ -224,15 +271,15 @@ post('/user/upload') do
   redirect('/media')
 end
 
-
+# Logs out a user
 get('/logout') do
   session[:id] = nil
   redirect('/')
 end
 
 
-
-
+# Cheacks if a string is emptu
+# @return [bool]
 def empty(string)
   if string.length() != 0
     return false
@@ -240,11 +287,7 @@ def empty(string)
   return true
 end
 
-
-
-
-# Generera användare samt posts
-
+# Generera användare
 post("/api/users") do
   payload = JSON.parse(request.body.read)
   username = payload['results'][0]['login']['username']
@@ -252,8 +295,8 @@ post("/api/users") do
   register_user(username,password)
 end
 
+# Genererar posts
 post('/api/users/post') do
   payload = JSON.parse(request.body.read)
-
 end
 
