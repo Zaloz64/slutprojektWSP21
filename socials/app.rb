@@ -294,11 +294,28 @@ post("/api/users") do
   payload = JSON.parse(request.body.read)
   username = payload['results'][0]['login']['username']
   password = payload['results'][0]['login']['password']
+  
+  picture = payload['results'][0]['picture']['medium']
+  temp = payload['results'][0]['name']
+  discription = "#{temp['title']} #{temp['first']} #{temp['last']}"
+
   register_user(username,password)
+  id = (get_userid(username))[0]['id']
+  update_bio(id, discription)
+  update_profile_img(id, picture)
+
+  p "------------------ Saved ------------------------------"
 end
 
 # Genererar posts
 post('/api/users/post') do
   payload = JSON.parse(request.body.read)
+  username = payload[0]
+  img_url = payload[1]
+  quote = payload[2]
+
+  id = (get_userid(username))[0]['id']
+  date = getDate()
+  new_post_pic(id, img_url, quote, date)
 end
 

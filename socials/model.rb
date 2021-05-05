@@ -254,4 +254,13 @@ module Model
         db = connect_to_db()
         db.execute('UPDATE users SET img = ? WHERE id = ?',img,id)
     end
+
+
+    # For programmering 2
+    def get_userid(name)
+        db = connect_to_db()
+        user = db.execute('SELECT id FROM users WHERE username = ?', name)
+        return user
+    end
+
 end
