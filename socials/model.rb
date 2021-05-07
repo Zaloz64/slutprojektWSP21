@@ -153,6 +153,15 @@ module Model
         return user
     end
 
+    def is_owner_of_comment(comment_id, user_id)
+        db = connect_to_db()
+        user = db.execute('SELECT * FROM comment_post_relation WHERE (comment_id, user_id) = (?,?)', comment_id,user_id)
+        if user != []
+            return true
+        end
+        return false
+    end
+
     # Gets all users
     # @return [Array] with hashes
     # * :id [Integer] The ID of the user 

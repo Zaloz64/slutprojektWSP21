@@ -13,3 +13,17 @@ Som slutproject ska jag skapa mer eller mindre en social media. Man ska kunna g�
 ## 4. Arkitektur (Beskriv filer och mappar - vad gör/innehåller de?).
 
 
+view - Alla slimfiler och felmedelanden.
+
+app.rb - Innehåller alla routes, sesstion, Authorization (vad man får göra) och felhantering.
+
+model.rb - Innehåller all databasinteraktioner, validering och Authenticaion (BCrypt).
+
+media - Är basen av pogrammet och har första sidan, profil och settings sidan
+
+post - allt rellaterat till post från att skapa ny, se post, och edita.
+
+user - användarnas profil
+
+view/signIn - Inloggning/signup
+view/layout - layout sidan

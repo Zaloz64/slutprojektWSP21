@@ -14,6 +14,9 @@ include Model
 # All users
 # Cheacks to see if user is admin
 before do
+  if (session[:id] == nil) && (request.path_info != "/") && (request.path_info != "/login")
+    redirect('/')
+  end
   @users = get_users()
   @isAdmin = isAdmin(session[:id])
 end
@@ -69,7 +72,7 @@ end
 # * :error [Boolean] whether there was an empty input 
 # * :error [Boolean] whether passwords did not match 
 # * :error [Boolean] whether the username is already used 
-post('/users/new') do
+post('/users/new') do 
 
   username = params[:username]
   password = params[:password]
@@ -151,12 +154,21 @@ post('/posts/edit') do
   redirect('/media')
 end
 
+# get('/posts/:id/delete') do
+#   redirect('/media')
+# end
+
 # Delets a post
 # Redirects to media
 # @param [Integer] id The id of the post
 post('/posts/:id/delete') do 
   id = params[:id].to_i
-  delete_a_post(id)
+  user = get_user_of_post(id)
+  
+  if user[0]['id'] == session[:id] && @isAdmin
+    delete_a_post(id)
+  end
+
   redirect('/media')
 end
 
@@ -240,7 +252,9 @@ end
 # @param [Integer] post_id The comments id
 post('/comments/:id/delete') do
   id = params[:id].to_i
-  delete_comment(id)
+  if is_owner_of_comment(id, session[:id]) || @isAdmin
+    delete_comment(id)
+  end
   redirect('/media')
 end
 
