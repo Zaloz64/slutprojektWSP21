@@ -30,10 +30,14 @@ module Model
         db = connect_to_db()
         result = db.execute("SELECT * FROM users WHERE username = ?",username).first
         if result != nil
+
+
             pwdigest = result["pwdigest"]
             if BCrypt::Password.new(pwdigest) == password
                 return result["id"]
             end
+
+            
         end
         return ""
     end
@@ -46,6 +50,7 @@ module Model
     def register_user(username, password)
         db = connect_to_db()
         password_digest = BCrypt::Password.create(password)
+
         if db.execute('SELECT * FROM users WHERE username = ?', username) == []
             db.execute('INSERT INTO users (username,pwdigest,img,bio) VALUES (?,?,?,?)',username,password_digest,"https://img.icons8.com/bubbles/100/000000/user.png","this is your bio")
             return false

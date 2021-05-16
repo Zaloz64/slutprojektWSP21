@@ -46,6 +46,8 @@ post('/login') do
   username = params[:username]
   password = params[:password]
   session[:picture] = "/img/image.png"
+
+  
   if session[:lastlogin] == nil || Time.now - session[:lastlogin] > 10
     if login_user(username, password) != "" 
       session[:id] = login_user(username, password)
